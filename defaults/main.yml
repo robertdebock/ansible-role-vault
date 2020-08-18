@@ -17,3 +17,17 @@ vault_listeners:
 vault_api_addr: "http://127.0.0.1:8200"
 vault_cluster_addr: "https://127.0.0.1:8201"
 vault_ui: "true"
+
+vault_key_shares: 5
+vault_key_threshold: 3
+
+# Once the unseal keys are known, they can be used to unseal the vault.
+# The initial run on this role, displays the seal keys and token once.
+# You can set them after the initial run here, but much better would be
+# to use ansible-vault.
+# vault_unseal_keys:
+#   - "4zWxu8yVanUEkJmLOBCiZa6e5WQb+8zHcyv/HjyJKfqW"
+#   - "z6zNeNnJusBA0Sf46GSf0S7iNCdx+B7QeBfhh29LHxZR"
+#   - "8uEg/+mOON7qW84/Z2NKFDxht9UCWgUs7f541liP/tzU"
+#   - "ai3eH6KZCpbVLFwm6Wnnc9GDGYoM7K/gJkfB8nIzkV75"
+#   - "sBEBQzmx6LLRT0ty2g4GkSSestlv67MG974rZ3rNfZmK"

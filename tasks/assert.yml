@@ -60,3 +60,34 @@
       - vault_ui is defined
       - vault_ui in ["false", "true"]
     quiet: yes
+
+- name: test if vault_key_shares is set correctly
+  assert:
+    that:
+      - vault_key_shares is defined
+      - vault_key_shares | int
+      - vault_key_shares | int > 0
+    quiet: yes
+
+- name: test if vault_key_threshold is set correctly
+  assert:
+    that:
+      - vault_key_threshold is defined
+      - vault_key_threshold | int
+      - vault_key_threshold | int > 0
+    quiet: yes
+
+- name: test if vault_key_shares and vault_key_threshold are set correctly
+  assert:
+    that:
+      - vault_key_threshold <= vault_key_shares
+    quiet: yes
+
+- name: test if vault_unseal_keys is set correctly
+  assert:
+    that:
+      - vault_unseal_keys | length >= vault_key_threshold
+      - vault_unseal_keys is iterable
+    quiet: yes
+  when:
+    - vault_unseal_keys is defined
