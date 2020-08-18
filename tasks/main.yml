@@ -1,0 +1,13 @@
+---
+# tasks file for vault
+- name: include assert.yml
+  include_tasks: assert.yml
+
+- name: download and install software
+  unarchive:
+    src: "{{ vault_unarchive_src }}"
+    dest: /usr/bin
+    remote_src: yes
+    mode: "755"
+    owner: root
+    group: root

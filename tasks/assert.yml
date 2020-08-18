@@ -1,0 +1,7 @@
+---
+- name: test if vault_version is set correctly
+  assert:
+    that:
+      - vault_version is defined
+      - vault_version | length > 0
+    quiet: yes

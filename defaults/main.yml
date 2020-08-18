@@ -1,0 +1,5 @@
+---
+# defaults file for vault
+
+# The version of Vault to install.
+vault_version: 1.5.0
