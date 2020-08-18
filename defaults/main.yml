@@ -3,3 +3,17 @@
 
 # The version of Vault to install.
 vault_version: 1.5.0
+
+vault_storages:
+  - name: raft
+    path: ./vault/data
+    node_id: node1
+
+vault_listeners:
+  - name: tcp
+    address: 127.0.0.1:8200
+    tls_disable: "1"
+
+vault_api_addr: "http://127.0.0.1:8200"
+vault_cluster_addr: "https://127.0.0.1:8201"
+vault_ui: "true"

@@ -11,3 +11,33 @@
     mode: "755"
     owner: root
     group: root
+
+- name: create storage path
+  file:
+    path: "{{ item.path }}"
+    mode: "0750"
+    state: directory
+  loop: "{{ vault_storages }}"
+
+- name: place config.hcl
+  template:
+    src: config.hcl.j2
+    dest: /root/config.hcl
+    mode: "0640"
+  notify:
+    - restart vault
+
+- name: create service
+  import_role:
+    name: robertdebock.service
+  vars:
+    service_list:
+      - name: vault
+        description: HashiCorp Vault
+        start_command: vault server -config=/root/config.hcl
+
+- name: start vault
+  service:
+    name: vault
+    state: started
+    enabled: true
