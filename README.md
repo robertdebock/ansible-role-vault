@@ -61,7 +61,7 @@ vault_version: 1.5.0
 
 vault_storages:
   - name: raft
-    path: ./vault/data
+    path: /root/vault/data
     node_id: node1
 
 vault_listeners:

@@ -79,6 +79,7 @@
     msg: "{{ vault_operator_init.stdout }}"
   when:
     - vault_operator_init is defined
+    - vault_operator_init.stdout is defined
 
 - name: unseal vault
   command: vault operator unseal {{ item }}
