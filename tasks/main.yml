@@ -36,7 +36,7 @@
     service_list:
       - name: vault
         description: HashiCorp Vault
-        start_command: vault server -config=/root/config.hcl
+        start_command: "/usr/bin/vault server -config=/root/config.hcl"
 
 - name: start vault
   service:
