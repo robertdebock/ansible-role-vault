@@ -59,6 +59,7 @@
     dest: /tmp/vault_status.yml
     mode: "0644"
   delegate_to: localhost
+  become: no
   changed_when: no
 
 - name: read vault_status as variables
