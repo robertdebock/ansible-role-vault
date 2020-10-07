@@ -26,6 +26,8 @@
       - item.node_id | length > 0
     quiet: yes
   loop: "{{ vault_storages }}"
+  loop_control:
+    label: "{{ item.name }}"
 
 - name: test if item in vault_listeners is set correctly
   assert:
@@ -39,6 +41,8 @@
       - item.tls_disable in ["0", "1"]
     quiet: yes
   loop: "{{ vault_listeners }}"
+  loop_control:
+    label: "{{ item.name }}"
 
 - name: test if vault_api_addr is set correctly
   assert:
