@@ -62,7 +62,7 @@
   assert:
     that:
       - vault_ui is defined
-      - vault_ui in ["false", "true"]
+      - vault_ui | type_debug == "bool"
     quiet: yes
 
 - name: test if vault_key_shares is set correctly

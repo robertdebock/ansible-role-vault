@@ -1,3 +1,7 @@
+{% if vault_ui is defined and vault_ui %}
+ui = true
+{% endif %}
+
 {% for storage in vault_storages %}
 storage "{{ storage.name }}" {
   path    = "{{ storage.path }}"
@@ -14,4 +18,3 @@ listener "{{ listener.name }}" {
 
 api_addr = "{{ vault_api_addr }}"
 cluster_addr = "{{ vault_cluster_addr }}"
-ui = {{ vault_ui }}

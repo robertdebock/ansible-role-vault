@@ -7,3 +7,7 @@
   tasks:
     - name: try vault
       command: vault --version
+
+    - name: connect to ui
+      uri:
+        url: http://localhost:8200/ui/vault/auth?with=token
