@@ -45,6 +45,10 @@ For verification `molecule/resources/verify.yml` runs after the role has been ap
   tasks:
     - name: try vault
       command: vault --version
+
+    - name: connect to ui
+      uri:
+        url: http://localhost:8200/ui/vault/auth?with=token
 ```
 
 Also see a [full explanation and example](https://robertdebock.nl/how-to-use-these-roles.html) on how to use these roles.
@@ -59,21 +63,28 @@ These variables are set in `defaults/main.yml`:
 # The version of Vault to install.
 vault_version: 1.5.0
 
+# The storage backend(s) to configure.
 vault_storages:
   - name: raft
     path: /root/vault/data
     node_id: node1
 
+# Where vault should listen on.
 vault_listeners:
   - name: tcp
     address: 127.0.0.1:8200
     tls_disable: "1"
 
+# The addresses to use.
 vault_api_addr: "http://127.0.0.1:8200"
 vault_cluster_addr: "https://127.0.0.1:8201"
-vault_ui: "true"
 
+# Have the web ui be made available.
+vault_ui: yes
+
+# The amount of unseal keys to hand out.
 vault_key_shares: 5
+# The amount of unseal keys to require.
 vault_key_threshold: 3
 
 # Once the unseal keys are known, they can be used to unseal the vault.
