@@ -42,7 +42,7 @@ jobs:
           - image: "centos"
             tag: "latest"
           - image: "fedora"
-            tag: "31"
+            tag: "32"
           - image: "fedora"
             tag: "latest"
           - image: "fedora"
