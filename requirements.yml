@@ -1,5 +1,6 @@
 ---
-- robertdebock.bootstrap
-- robertdebock.ca_certificates
-- robertdebock.core_dependencies
-- robertdebock.service
+roles:
+  - name: robertdebock.bootstrap
+  - name: robertdebock.ca_certificates
+  - name: robertdebock.core_dependencies
+  - name: robertdebock.service
