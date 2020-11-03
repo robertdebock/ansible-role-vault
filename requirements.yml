@@ -3,5 +3,6 @@ roles:
   - name: robertdebock.bootstrap
   - name: robertdebock.ca_certificates
   - name: robertdebock.core_dependencies
+  - name: robertdebock.hashicorp
   - name: robertdebock.service
   - name: robertdebock.vault
