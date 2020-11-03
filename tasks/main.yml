@@ -4,15 +4,6 @@
   include_tasks: assert.yml
   run_once: yes
 
-- name: download and install software
-  unarchive:
-    src: "{{ vault_unarchive_src }}"
-    dest: /usr/bin
-    remote_src: yes
-    mode: "755"
-    owner: root
-    group: root
-
 - name: create storage path
   file:
     path: "{{ item.path }}"
@@ -22,10 +13,16 @@
   loop_control:
     label: "{{ item.path }}"
 
+- name: create /etc/vault
+  file:
+    path: /etc/vault
+    state: directory
+    mode: "0750"
+
 - name: place config.hcl
   template:
     src: config.hcl.j2
-    dest: /root/config.hcl
+    dest: /etc/vault/config.hcl
     mode: "0640"
   notify:
     - restart vault
@@ -37,7 +34,7 @@
     service_list:
       - name: vault
         description: HashiCorp Vault
-        start_command: "/usr/bin/vault server -config=/root/config.hcl"
+        start_command: "/usr/bin/vault server -config=/etc/vault/config.hcl"
 
 - name: start vault
   service:
