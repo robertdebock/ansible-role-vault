@@ -8,22 +8,24 @@ galaxy_info:
   min_ansible_version: 2.9
 
   platforms:
-    - name: Debian
+    - name: Amazon
       versions:
         - all
     - name: EL
       versions:
         - 7
         - 8
+    - name: Debian
+      versions:
+        - buster
     - name: Fedora
       versions:
-        - all
-    - name: OpenSUSE
-      versions:
-        - all
+        - 32
+        - 33
     - name: Ubuntu
       versions:
-        - all
+        - bionic
+        - focal
 
   galaxy_tags:
     - vault
