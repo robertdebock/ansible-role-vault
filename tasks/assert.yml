@@ -19,7 +19,7 @@
     that:
       - item.name is defined
       - item.name | length > 0
-      - item.name in ["raft"]
+      - item.name in [ "raft" ]
       - item.path is defined
       - item.path | length > 0
       - item.node_id is defined
@@ -34,11 +34,11 @@
     that:
       - item.name is defined
       - item.name | length > 0
-      - item.name in ["tcp"]
+      - item.name in [ "tcp" ]
       - item.address is defined
       - item.address | length > 0
       - item.tls_disable is defined
-      - item.tls_disable in ["0", "1"]
+      - item.tls_disable in [ "0", "1" ]
     quiet: yes
   loop: "{{ vault_listeners }}"
   loop_control:
