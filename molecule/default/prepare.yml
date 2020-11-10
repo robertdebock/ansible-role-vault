@@ -7,7 +7,6 @@
   roles:
     - role: robertdebock.bootstrap
     - role: robertdebock.core_dependencies
-    - role: robertdebock.ca_certificates
     - role: robertdebock.hashicorp
       hashicorp_products:
         - vault
