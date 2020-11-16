@@ -61,7 +61,7 @@
     that:
       - vault_key_shares is defined
       - vault_key_shares is number
-      - vault_key_shares | int > 0
+      - vault_key_shares > 0
     quiet: yes
 
 - name: test if vault_key_threshold is set correctly
@@ -69,7 +69,7 @@
     that:
       - vault_key_threshold is defined
       - vault_key_threshold is number
-      - vault_key_threshold | int > 0
+      - vault_key_threshold > 0
     quiet: yes
 
 - name: test if vault_key_shares and vault_key_threshold are set correctly
