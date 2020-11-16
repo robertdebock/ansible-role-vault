@@ -3,14 +3,12 @@
   assert:
     that:
       - vault_version is defined
-      - vault_version | length > 0
     quiet: yes
 
 - name: test if vault_storages is set correctly
   assert:
     that:
       - vault_storages is defined
-      - vault_storages | length > 0
       - vault_storages is iterable
     quiet: yes
 
@@ -18,12 +16,9 @@
   assert:
     that:
       - item.name is defined
-      - item.name | length > 0
       - item.name in [ "raft" ]
       - item.path is defined
-      - item.path | length > 0
       - item.node_id is defined
-      - item.node_id | length > 0
     quiet: yes
   loop: "{{ vault_storages }}"
   loop_control:
@@ -33,10 +28,8 @@
   assert:
     that:
       - item.name is defined
-      - item.name | length > 0
       - item.name in [ "tcp" ]
       - item.address is defined
-      - item.address | length > 0
       - item.tls_disable is defined
       - item.tls_disable in [ "0", "1" ]
     quiet: yes
@@ -48,14 +41,12 @@
   assert:
     that:
       - vault_api_addr is defined
-      - vault_api_addr | length > 0
     quiet: yes
 
 - name: test if vault_cluster_addr is set correctly
   assert:
     that:
       - vault_cluster_addr is defined
-      - vault_cluster_addr | length > 0
     quiet: yes
 
 - name: test if vault_ui is set correctly
