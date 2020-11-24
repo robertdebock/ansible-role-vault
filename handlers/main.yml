@@ -1,6 +1,9 @@
 ---
 # handlers file for vault
+
 - name: restart vault
   service:
     name: vault
     state: restarted
+  when:
+    - not ansible_check_mode | bool
