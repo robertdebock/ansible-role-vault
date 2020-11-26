@@ -1,4 +1,5 @@
 ---
+
 - name: test if vault_version is set correctly
   assert:
     that:
