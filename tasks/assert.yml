@@ -4,6 +4,7 @@
   assert:
     that:
       - vault_version is defined
+      - vault_version is string
     quiet: yes
 
 - name: test if vault_storages is set correctly
@@ -17,9 +18,12 @@
   assert:
     that:
       - item.name is defined
+      - item.name is string
       - item.name in [ "raft" ]
       - item.path is defined
+      - item.path is string
       - item.node_id is defined
+      - item.node_id is string
     quiet: yes
   loop: "{{ vault_storages }}"
   loop_control:
@@ -29,10 +33,12 @@
   assert:
     that:
       - item.name is defined
+      - item.name is string
       - item.name in [ "tcp" ]
       - item.address is defined
+      - item.address is string
       - item.tls_disable is defined
-      - item.tls_disable in [ "0", "1" ]
+      - item.tls_disable is boolean
     quiet: yes
   loop: "{{ vault_listeners }}"
   loop_control:
@@ -42,12 +48,14 @@
   assert:
     that:
       - vault_api_addr is defined
+      - vault_api_addr is string
     quiet: yes
 
 - name: test if vault_cluster_addr is set correctly
   assert:
     that:
       - vault_cluster_addr is defined
+      - vault_cluster_addr is string
     quiet: yes
 
 - name: test if vault_ui is set correctly
