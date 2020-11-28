@@ -38,7 +38,7 @@
       - item.address is defined
       - item.address is string
       - item.tls_disable is defined
-      - item.tls_disable is boolean
+      - item.tls_disable is string
     quiet: yes
   loop: "{{ vault_listeners }}"
   loop_control:
