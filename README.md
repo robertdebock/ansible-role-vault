@@ -2,9 +2,9 @@
 
 Install Hashicorp Vault on your system.
 
-|Travis|GitHub|Quality|Downloads|Version|
-|------|------|-------|---------|-------|
-|[![travis](https://travis-ci.com/robertdebock/ansible-role-vault.svg?branch=master)](https://travis-ci.com/robertdebock/ansible-role-vault)|[![github](https://github.com/robertdebock/ansible-role-vault/workflows/Ansible%20Molecule/badge.svg)](https://github.com/robertdebock/ansible-role-vault/actions)|[![quality](https://img.shields.io/ansible/quality/50255)](https://galaxy.ansible.com/robertdebock/vault)|[![downloads](https://img.shields.io/ansible/role/d/50255)](https://galaxy.ansible.com/robertdebock/vault)|[![Version](https://img.shields.io/github/release/robertdebock/ansible-role-vault.svg)](https://github.com/robertdebock/ansible-role-vault/releases/)|
+|Travis|GitHub|GitLab|Quality|Downloads|Version|
+|------|------|------|-------|---------|-------|
+|[![travis](https://travis-ci.com/robertdebock/ansible-role-vault.svg?branch=master)](https://travis-ci.com/robertdebock/ansible-role-vault)|[![github](https://github.com/robertdebock/ansible-role-vault/workflows/Ansible%20Molecule/badge.svg)](https://github.com/robertdebock/ansible-role-vault/actions)|[![gitlab](https://gitlab.com/robertdebock/ansible-role-vault/badges/master/pipeline.svg)](https://gitlab.com/robertdebock/ansible-role-vault)|[![quality](https://img.shields.io/ansible/quality/50255)](https://galaxy.ansible.com/robertdebock/vault)|[![downloads](https://img.shields.io/ansible/role/d/50255)](https://galaxy.ansible.com/robertdebock/vault)|[![Version](https://img.shields.io/github/release/robertdebock/ansible-role-vault.svg)](https://github.com/robertdebock/ansible-role-vault/releases/)|
 
 ## [Example Playbook](#example-playbook)
 
@@ -45,24 +45,38 @@ These variables are set in `defaults/main.yml`:
 ---
 # defaults file for vault
 
-# The version of Vault to install.
-vault_version: 1.5.0
+# The TTL parameters
+vault_max_lease_ttl: 786h
+vault_default_lease_ttl: 768h
+
+# Configure clustering.
+vault_disable_clustering: "True"
+
+# The details of the cluster.
+vault_cluster_name: vault-cluster
+
+# The addresses to use.
+vault_cluster_addr: "http://vault1.example.com:8201"
+vault_api_addr: "http://vault2.example.com:8200"
+
+# The plugin plugin directory.
+vault_plugin_directory: /usr/local/lib/vault/plugins
 
 # The storage backend(s) to configure.
 vault_storages:
   - name: raft
     path: /vault/data
     node_id: node1
+    # retry_join:
+    #   - "http://vault1.example.com:8200"
+    #   - "http://vault2.example.com:8200"
+    #   - "/http://vault3.example.com:8200"
 
 # Where vault should listen on.
 vault_listeners:
   - name: tcp
     address: 127.0.0.1:8200
     tls_disable: "1"
-
-# The addresses to use.
-vault_api_addr: "http://127.0.0.1:8200"
-vault_cluster_addr: "https://127.0.0.1:8201"
 
 # Have the web ui be made available.
 vault_ui: yes
@@ -86,10 +100,11 @@ vault_key_threshold: 3
 
 ## [Requirements](#requirements)
 
-- Access to a repository containing packages, likely on the internet.
-- A recent version of Ansible. (Tests run on the current, previous and next release of Ansible.)
+- pip packages listed in [requirements.txt](https://github.com/robertdebock/ansible-role-vault/blob/master/requirements.txt).
 
 ## [Status of requirements](#status-of-requirements)
+
+The following roles are used to prepare a system. You may choose to prepare your system in another way, I have tested these roles as well.
 
 | Requirement | Travis | GitHub |
 |-------------|--------|--------|
@@ -161,10 +176,6 @@ image="debian" tag="stable" tox
 ## [License](#license)
 
 Apache-2.0
-
-## [Contributors](#contributors)
-
-I'd like to thank everybody that made contributions to this repository. It motivates me, improves the code and is just fun to collaborate.
 
 
 ## [Author Information](#author-information)
