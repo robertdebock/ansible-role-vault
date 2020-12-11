@@ -1,9 +1,6 @@
 ---
 # defaults file for vault
 
-# The version of Vault to install.
-vault_version: 1.5.0
-
 # The storage backend(s) to configure.
 vault_storages:
   - name: raft
