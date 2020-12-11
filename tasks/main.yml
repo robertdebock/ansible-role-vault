@@ -38,6 +38,7 @@
   check_mode: no
   failed_when: no
   register: vault_status
+  run_once: yes
 
 - name: save vault_status
   copy:
@@ -47,11 +48,13 @@
   delegate_to: localhost
   become: no
   changed_when: no
+  run_once: yes
 
 - name: read vault_status as variables
   include_vars:
     file: /tmp/vault_status.yml
     name: vault_saved_status
+  run_once: yes
 
 - name: initialize vault
   command: vault operator init -key-shares={{ vault_key_shares }} -key-threshold={{ vault_key_threshold }}
