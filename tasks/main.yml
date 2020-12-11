@@ -24,61 +24,63 @@
   notify:
     - restart vault
 
-- name: start vault
-  service:
-    name: vault
-    state: started
-    enabled: true
+- name: configure leader
+  block:
+    - name: start vault
+      service:
+        name: vault
+        state: started
+        enabled: true
 
-- name: check status of vault
-  command: vault status -format=yaml
-  environment:
-    VAULT_ADDR: "http://127.0.0.1:8200"
-  changed_when: no
-  check_mode: no
-  failed_when: no
-  register: vault_status
+    - name: check status of vault
+      command: vault status -format=yaml
+      environment:
+        VAULT_ADDR: "http://127.0.0.1:8200"
+      changed_when: no
+      check_mode: no
+      failed_when: no
+      register: vault_status
+
+    - name: save vault_status
+      copy:
+        content: "{{ vault_status.stdout }}"
+        dest: /tmp/vault_status.yml
+        mode: "0644"
+      delegate_to: localhost
+      become: no
+      changed_when: no
+
+    - name: read vault_status as variables
+      include_vars:
+        file: /tmp/vault_status.yml
+        name: vault_saved_status
+
+    - name: initialize vault
+      command: vault operator init -key-shares={{ vault_key_shares }} -key-threshold={{ vault_key_threshold }} -format=yaml
+      register: vault_operator_init
+      environment:
+        VAULT_ADDR: "http://127.0.0.1:8200"
+      when:
+        - not vault_saved_status.initialized | bool
+
+    - name: show keys and token
+      debug:
+        msg: "{{ vault_operator_init.stdout }}"
+      when:
+        - vault_operator_init is defined
+        - vault_operator_init.stdout is defined
+
+    - name: unseal vault
+      command: vault operator unseal {{ item }}
+      environment:
+        VAULT_ADDR: "http://127.0.0.1:8200"
+      loop: "{{ vault_unseal_keys }}"
+      loop_control:
+        label: "hidden"
+      no_log: yes
+      notify:
+        - restart vault
+      when:
+        - vault_unseal_keys is defined
+        - vault_saved_status.sealed | bool
   run_once: yes
-
-- name: save vault_status
-  copy:
-    content: "{{ vault_status.stdout }}"
-    dest: /tmp/vault_status.yml
-    mode: "0644"
-  delegate_to: localhost
-  become: no
-  changed_when: no
-  run_once: yes
-
-- name: read vault_status as variables
-  include_vars:
-    file: /tmp/vault_status.yml
-    name: vault_saved_status
-  run_once: yes
-
-- name: initialize vault
-  command: vault operator init -key-shares={{ vault_key_shares }} -key-threshold={{ vault_key_threshold }}
-  register: vault_operator_init
-  environment:
-    VAULT_ADDR: "http://127.0.0.1:8200"
-  when:
-    - not vault_saved_status.initialized | bool
-
-- name: show keys and token
-  debug:
-    msg: "{{ vault_operator_init.stdout }}"
-  when:
-    - vault_operator_init is defined
-    - vault_operator_init.stdout is defined
-
-- name: unseal vault
-  command: vault operator unseal {{ item }}
-  environment:
-    VAULT_ADDR: "http://127.0.0.1:8200"
-  loop: "{{ vault_unseal_keys }}"
-  loop_control:
-    label: "hidden"
-  no_log: yes
-  when:
-    - vault_unseal_keys is defined
-    - vault_saved_status.sealed | bool
