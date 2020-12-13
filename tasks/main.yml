@@ -5,7 +5,7 @@
   include_tasks: assert.yml
   run_once: yes
 
-- name: create storage path
+- name: create vault storage path
   file:
     path: "{{ item.path }}"
     mode: "0750"
@@ -16,7 +16,7 @@
   loop_control:
     label: "{{ item.path }}"
 
-- name: place config.hcl
+- name: place /etc/vaultd.d/config.hcl
   template:
     src: config.hcl.j2
     dest: /etc/vault.d/vault.hcl
@@ -24,15 +24,25 @@
   notify:
     - restart vault
 
+- name: select leader
+  set_fact:
+    vault_leader: "{{ inventory_hostname }}"
+  run_once: yes
+# TODO: Introduce a variable where the user of the role can select a leader.
+
+- name: show vault_leader
+  debug:
+    msg: "{{ vault_leader }}"
+
 - name: configure leader
   block:
-    - name: start vault
+    - name: start vault leader
       service:
         name: vault
         state: started
         enabled: true
 
-    - name: check status of vault
+    - name: check status of vault leader
       command: vault status -format=yaml
       environment:
         VAULT_ADDR: "http://127.0.0.1:8200"
@@ -41,46 +51,63 @@
       failed_when: no
       register: vault_status
 
-    - name: save vault_status
-      copy:
-        content: "{{ vault_status.stdout }}"
-        dest: /tmp/vault_status.yml
-        mode: "0644"
-      delegate_to: localhost
-      become: no
-      changed_when: no
+    - name: save vault_status for leader
+      set_fact:
+        vault_status: "{{ vault_status.stdout | from_yaml }}"
 
-    - name: read vault_status as variables
-      include_vars:
-        file: /tmp/vault_status.yml
-        name: vault_saved_status
-
-    - name: initialize vault
+    - name: initialize vault on leader
       command: vault operator init -key-shares={{ vault_key_shares }} -key-threshold={{ vault_key_threshold }} -format=yaml
       register: vault_operator_init
       environment:
         VAULT_ADDR: "http://127.0.0.1:8200"
       when:
-        - not vault_saved_status.initialized | bool
+        - not vault_status.initialized | bool
 
-    - name: show keys and token
-      debug:
-        msg: "{{ vault_operator_init.stdout }}"
+    - name: save vault_init_output for leader
+      set_fact:
+        vault_init_output: "{{ vault_operator_init.stdout | from_yaml }}"
       when:
         - vault_operator_init is defined
         - vault_operator_init.stdout is defined
 
-    - name: unseal vault
-      command: vault operator unseal {{ item }}
-      environment:
-        VAULT_ADDR: "http://127.0.0.1:8200"
-      loop: "{{ vault_unseal_keys }}"
-      loop_control:
-        label: "hidden"
-      no_log: yes
-      notify:
-        - restart vault
+    - name: unseal vault leader
+      block:
+        - name: show unseal information
+          block:
+            - name: show unseal keys for leader
+              debug:
+                msg: "{{ vault_init_output.unseal_keys_b64 }}"
+
+            - name: show root token for leader
+              debug:
+                msg: "{{ vault_init_output.root_token }}"
+          when:
+            - vault_show_unseal_information | bool
+
+        - name: unseal vault leader
+          command: vault operator unseal {{ item }}
+          environment:
+            VAULT_ADDR: "http://127.0.0.1:8200"
+          loop: "{{ vault_init_output.unseal_keys_b64 }}"
+          loop_control:
+            label: "hidden"
+          no_log: yes
       when:
-        - vault_unseal_keys is defined
-        - vault_saved_status.sealed | bool
+        - vault_init_output is defined
+        - vault_init_output.unseal_keys_b64 is defined
+        - vault_init_output.unseal_keys_b64 is iterable
   run_once: yes
+
+- name: join vault leader
+  block:
+    - name: join
+      command: vault operator raft join http://{{ vault_leader }}:8200
+
+    - name: restart vault followers
+      service:
+        name: vault
+        state: restarted
+        enabled: true
+  when:
+    - not ansible_check_mode | bool
+    - inventory_hostname != vault_leader

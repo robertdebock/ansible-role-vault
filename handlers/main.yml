@@ -2,8 +2,10 @@
 # handlers file for vault
 
 - name: restart vault
-  service:
-    name: vault
-    state: restarted
-  when:
-    - not ansible_check_mode | bool
+  debug:
+    msg: "Restarting vault is disabled for now to prevent sealing."
+    # service:
+    #   name: vault
+    #   state: restarted
+    # when:
+    #   - not ansible_check_mode | bool

@@ -1,21 +1,38 @@
 ---
 # defaults file for vault
 
+# The TTL parameters
+vault_max_lease_ttl: 786h
+vault_default_lease_ttl: 768h
+
+# Configure clustering.
+vault_disable_clustering: "True"
+
+# The details of the cluster.
+vault_cluster_name: vault-cluster
+
+# The addresses to use.
+vault_cluster_addr: "http://vault1.example.com:8201"
+vault_api_addr: "http://vault2.example.com:8200"
+
+# The plugin plugin directory.
+vault_plugin_directory: /usr/local/lib/vault/plugins
+
 # The storage backend(s) to configure.
 vault_storages:
   - name: raft
     path: /vault/data
     node_id: node1
+    # retry_join:
+    #   - "http://vault1.example.com:8200"
+    #   - "http://vault2.example.com:8200"
+    #   - "/http://vault3.example.com:8200"
 
 # Where vault should listen on.
 vault_listeners:
   - name: tcp
     address: 127.0.0.1:8200
     tls_disable: "1"
-
-# The addresses to use.
-vault_api_addr: "http://127.0.0.1:8200"
-vault_cluster_addr: "https://127.0.0.1:8201"
 
 # Have the web ui be made available.
 vault_ui: yes
@@ -24,6 +41,10 @@ vault_ui: yes
 vault_key_shares: 5
 # The amount of unseal keys to require.
 vault_key_threshold: 3
+
+# If you want to see the (sensitive) output of `vault operator init`, set
+# this parameter to `yes`
+vault_show_unseal_information: no
 
 # Once the unseal keys are known, they can be used to unseal the vault.
 # The initial run on this role, displays the seal keys and token once.

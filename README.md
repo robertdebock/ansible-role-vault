@@ -86,6 +86,10 @@ vault_key_shares: 5
 # The amount of unseal keys to require.
 vault_key_threshold: 3
 
+# If you want to see the (sensitive) output of `vault operator init`, set
+# this parameter to `yes`
+vault_show_unseal_information: no
+
 # Once the unseal keys are known, they can be used to unseal the vault.
 # The initial run on this role, displays the seal keys and token once.
 # You can set them after the initial run here, but much better would be

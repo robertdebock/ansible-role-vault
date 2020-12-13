@@ -1,5 +1,59 @@
 ---
 
+- name: test if vault_max_lease_ttl is set correctly
+  assert:
+    that:
+      - vault_max_lease_ttl is defined
+      - vault_max_lease_ttl is string
+    quiet: yes
+
+- name: test if vault_default_lease_ttl is set correctly
+  assert:
+    that:
+      - vault_default_lease_ttl is defined
+      - vault_default_lease_ttl is string
+    quiet: yes
+
+- name: test if vault_disable_clustering is set correctly
+  assert:
+    that:
+      - vault_disable_clustering is defined
+      - vault_disable_clustering is string
+      - vault_disable_clustering in [ "False", "True" ]
+    quiet: yes
+
+- name: test if vault_cluster_name is set correctly
+  assert:
+    that:
+      - vault_cluster_name is defined
+      - vault_cluster_name is string
+    quiet: yes
+  when:
+    - vault_disable_clustering == "False"
+
+- name: test if vault_cluster_addr is set correctly
+  assert:
+    that:
+      - vault_cluster_addr is defined
+      - vault_cluster_addr is string
+    quiet: yes
+  when:
+    - vault_disable_clustering == "False"
+
+- name: test if vault_api_addr is set correctly
+  assert:
+    that:
+      - vault_api_addr is defined
+      - vault_api_addr is string
+    quiet: yes
+
+- name: test if vault_plugin_directory is set correctly
+  assert:
+    that:
+      - vault_plugin_directory is defined
+      - vault_plugin_directory is string
+    quiet: yes
+
 - name: test if vault_storages is set correctly
   assert:
     that:
@@ -22,6 +76,18 @@
   loop_control:
     label: "{{ item.name }}"
 
+- name: test if item in vault_storages is set correctly for clusters
+  assert:
+    that:
+      - item.retry_join is defined
+      - item.retry_join is iterable
+    quiet: yes
+  loop: "{{ vault_storages }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when:
+    - vault_disable_clustering == "False"
+
 - name: test if item in vault_listeners is set correctly
   assert:
     that:
@@ -36,20 +102,6 @@
   loop: "{{ vault_listeners }}"
   loop_control:
     label: "{{ item.name }}"
-
-- name: test if vault_api_addr is set correctly
-  assert:
-    that:
-      - vault_api_addr is defined
-      - vault_api_addr is string
-    quiet: yes
-
-- name: test if vault_cluster_addr is set correctly
-  assert:
-    that:
-      - vault_cluster_addr is defined
-      - vault_cluster_addr is string
-    quiet: yes
 
 - name: test if vault_ui is set correctly
   assert:
@@ -79,6 +131,12 @@
     that:
       - vault_key_threshold <= vault_key_shares
     quiet: yes
+
+- name: test if vault_show_unseal_information is set correctly
+  assert:
+    that:
+      - vault_show_unseal_information is defined
+      - vault_show_unseal_information is boolean
 
 - name: test if vault_unseal_keys is set correctly
   assert:
