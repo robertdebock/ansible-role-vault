@@ -10,10 +10,9 @@
     - name: check status of vault leader
       command: vault status -format=yaml
       environment:
-        VAULT_ADDR: "http://127.0.0.1:8200"
+        VAULT_ADDR: "{{ vault_api_addr }}"
       changed_when: no
       check_mode: no
-      failed_when: no
       register: vault_status_raw
 
     - name: save vault_status for leader
@@ -24,7 +23,7 @@
       command: vault operator init -key-shares={{ vault_key_shares }} -key-threshold={{ vault_key_threshold }} -format=yaml
       register: vault_operator_init
       environment:
-        VAULT_ADDR: "http://127.0.0.1:8200"
+        VAULT_ADDR: "{{ vault_api_addr }}"
       when:
         - not vault_status.initialized | bool
 
@@ -52,7 +51,7 @@
         - name: unseal vault leader
           command: vault operator unseal {{ item }}
           environment:
-            VAULT_ADDR: "http://127.0.0.1:8200"
+            VAULT_ADDR: "{{ vault_api_addr }}"
           loop: "{{ vault_init_output.unseal_keys_b64 }}"
           loop_control:
             label: "hidden"
