@@ -65,3 +65,6 @@ vault_show_unseal_information: no
 #   - "8uEg/+mOON7qW84/Z2NKFDxht9UCWgUs7f541liP/tzU"
 #   - "ai3eH6KZCpbVLFwm6Wnnc9GDGYoM7K/gJkfB8nIzkV75"
 #   - "sBEBQzmx6LLRT0ty2g4GkSSestlv67MG974rZ3rNfZmK"
+
+# To reduce disk io, mlock can be disabled.
+vault_disable_mlock: "true"
