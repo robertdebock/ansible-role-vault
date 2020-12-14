@@ -6,7 +6,7 @@
     enabled: true
 
 - name: join member to leader
-  command: vault operator raft join http://{{ vault_leader }}:8200
+  command: vault operator raft join -tls-skip-verify https://{{ vault_leader }}:8200
   environment:
     VAULT_ADDR: "http://127.0.0.1:8200"
   args:
