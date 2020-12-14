@@ -55,8 +55,17 @@ vault_disable_clustering: "True"
 # The details of the cluster.
 vault_cluster_name: vault-cluster
 
-# The addresses to use.
-vault_cluster_addr: "http://vault1.example.com:8201"
+# The leader to use, please use a fqdn, i.e. `vault.example.com`
+# This variable is not required for single-node installations, where the
+# variabel `vault_disable_clustering` is set to `"True"`.
+# vault_leader: centos-7
+
+# The URL where cluster members can find the leader.
+# This variable is not required for single-node installations, where the
+# variabel `vault_disable_clustering` is set to `"True"`.
+# vault_cluster_addr: "http://{{ vault_leader }}:8201"
+
+# The URL where the API will be served.
 vault_api_addr: "http://vault2.example.com:8200"
 
 # The plugin plugin directory.

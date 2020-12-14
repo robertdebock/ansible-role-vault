@@ -28,7 +28,8 @@
   set_fact:
     vault_leader: "{{ inventory_hostname }}"
   run_once: yes
-# TODO: Introduce a variable where the user of the role can select a leader.
+  when:
+    - vault_leader is not defined
 
 - name: show vault_leader
   debug:

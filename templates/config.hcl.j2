@@ -34,4 +34,7 @@ listener "{{ listener.name }}" {
 {% endfor %}
 
 api_addr = "{{ vault_api_addr }}"
+
+{% if vault_cluster_addr is defined %}
 cluster_addr = "{{ vault_cluster_addr }}"
+{% endif %}
