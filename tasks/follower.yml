@@ -11,9 +11,6 @@
     VAULT_ADDR: "http://127.0.0.1:8200"
   args:
     creates: nothing
-  register: vault_join_member_to_leader
-  retries: 3
-  until: vault_join_member_to_leader is succeeded
 
 - name: restart vault followers
   service:
