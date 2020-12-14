@@ -17,7 +17,7 @@ vault_cluster_name: vault-cluster
 # vault_leader: centos-7
 
 # The URL where cluster members can find the leader.
-vault_cluster_addr: "http://{{ vault_leader }}:8201"
+vault_cluster_addr: "http://{{ vault_leader | default('localhost') }}:8201"
 
 # The URL where the API will be served. This is the API of a local instance.
 vault_api_addr: "http://127.0.0.1:8200"
