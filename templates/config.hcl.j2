@@ -1,12 +1,15 @@
-{{ ansible_managed | comment }}"
+{{ ansible_managed | comment }}
 
 cluster_name = "{{ vault_cluster_name }}"
 max_lease_ttl = "{{ vault_max_lease_ttl }}"
 default_lease_ttl = "{{ vault_default_lease_ttl }}"
 
-disable_clustering = "False"
-cluster_addr = "http://vault1.libvirt:8201"
-api_addr = "http://vault1.libvirt:8200"
+disable_clustering = "{{ vault_disable_clustering }}"
+{% if vault_cluster_addr is defined %}
+cluster_addr = "{{ vault_cluster_addr }}"
+{% endif %}
+
+api_addr = "{{ vault_api_addr }}"
 
 plugin_directory = "/usr/local/lib/vault/plugins"
 
@@ -18,11 +21,11 @@ ui = true
 storage "{{ storage.name }}" {
   path    = "{{ storage.path }}"
   node_id = "{{ storage.node_id }}"
-  {% if storage.retry_join is defined %}{% for member in storage.retry_join %}
+{% if storage.retry_join is defined %}{% for member in storage.retry_join %}
   retry_join {
     leader_api_addr="{{ member }}"
   }
-  {% endfor %}{% endif %}
+{% endfor %}{% endif %}
 }
 {% endfor %}
 
@@ -38,3 +41,5 @@ api_addr = "{{ vault_api_addr }}"
 {% if vault_cluster_addr is defined %}
 cluster_addr = "{{ vault_cluster_addr }}"
 {% endif %}
+
+disable_mlock = "{{ vault_disable_mlock }}"
