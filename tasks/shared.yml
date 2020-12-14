@@ -1,0 +1,38 @@
+---
+- name: create vault storage path
+  file:
+    path: "{{ item.path }}"
+    mode: "0750"
+    owner: vault
+    group: vault
+    state: directory
+  loop: "{{ vault_storages }}"
+  loop_control:
+    label: "{{ item.path }}"
+
+- name: make plugin directory
+  file:
+    path: "{{ vault_plugin_directory }}"
+    state: directory
+    owner: vault
+    group: vault
+    mode: "0755"
+
+- name: place /etc/vaultd.d/config.hcl
+  template:
+    src: config.hcl.j2
+    dest: /etc/vault.d/vault.hcl
+    mode: "0640"
+  notify:
+    - restart vault
+
+- name: select leader if vault_leader is unset
+  set_fact:
+    vault_leader: "{{ inventory_hostname }}"
+  run_once: yes
+  when:
+    - vault_leader is not defined
+
+- name: show vault_leader
+  debug:
+    msg: "{{ vault_leader }}"

@@ -1,0 +1,19 @@
+---
+- name: start vault follower
+  service:
+    name: vault
+    state: started
+    enabled: true
+
+- name: join member to leader
+  command: vault operator raft join http://{{ vault_leader }}:8200
+  environment:
+    VAULT_ADDR: "http://127.0.0.1:8200"
+  args:
+    creates: nothing
+
+- name: restart vault followers
+  service:
+    name: vault
+    state: restarted
+    enabled: true
