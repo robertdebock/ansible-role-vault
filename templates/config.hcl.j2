@@ -29,11 +29,10 @@ storage "{{ storage.name }}" {
 
 {% for listener in vault_listeners %}
 listener "{{ listener.name }}" {
-  address     = "{{ listener.address }}"
-  tls_disable = {{ listener.tls_disable }}
+  address         = "{{ listener.address }}"
+  cluster_address = "{{ listener.cluster_address }}"
+  tls_disable     = {{ listener.tls_disable }}
 }
 {% endfor %}
-
-cluster_addr = "{{ vault_cluster_addr }}"
 
 disable_mlock = {{ vault_disable_mlock }}

@@ -19,8 +19,8 @@ vault_cluster_name: vault-cluster
 # The URL where cluster members can find the leader.
 vault_cluster_addr: "http://{{ vault_leader }}:8201"
 
-# The URL where the API will be served.
-vault_api_addr: "http://vault2.example.com:8200"
+# The URL where the API will be served. This is the API of a local instance.
+vault_api_addr: "http://127.0.0.1:8200"
 
 # The plugin plugin directory.
 vault_plugin_directory: /usr/local/lib/vault/plugins
@@ -39,6 +39,7 @@ vault_storages:
 vault_listeners:
   - name: tcp
     address: 127.0.0.1:8200
+    cluster_address: 127.0.0.1:8201
     tls_disable: "1"
 
 # Have the web ui be made available.
