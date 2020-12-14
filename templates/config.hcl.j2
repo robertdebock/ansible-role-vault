@@ -5,13 +5,7 @@ storage "{{ storage.name }}" {
   path    = "{{ storage.path }}"
   node_id = "{{ storage.node_id }}"
 }
-# {% if storage.retry_join is defined %}{% for member in storage.retry_join %}
-#   retry_join {
-#     leader_api_addr="{{ member }}"
-#   }
-# {% endfor %}{% endif %}
-# }
-# {% endfor %}
+{% endfor %}
 
 {% for listener in vault_listeners %}
 listener "{{ listener.name }}" {
@@ -21,12 +15,13 @@ listener "{{ listener.name }}" {
 }
 {% endfor %}
 
-cluster_addr = "{{ vault_cluster_addr }}"
-cluster_name = "{{ vault_cluster_name }}"
-max_lease_ttl = "{{ vault_max_lease_ttl }}"
-default_lease_ttl = "{{ vault_default_lease_ttl }}"
-disable_clustering = "{{ vault_disable_clustering }}"
-api_addr = "{{ vault_api_addr }}"
-plugin_directory = "/usr/local/lib/vault/plugins"
-ui = {{ vault_ui }}
-disable_mlock = {{ vault_disable_mlock }}
+cluster_addr       = "{{ vault_cluster_addr }}"
+api_addr           = "{{ vault_api_addr }}"
+cluster_name       = "{{ vault_cluster_name }}"
+disable_mlock      = {{ vault_disable_mlock }}
+
+# max_lease_ttl      = "{{ vault_max_lease_ttl }}"
+# default_lease_ttl  = "{{ vault_default_lease_ttl }}"
+# disable_clustering = "{{ vault_disable_clustering }}"
+# plugin_directory   = "/usr/local/lib/vault/plugins"
+# ui                 = {{ vault_ui }}
