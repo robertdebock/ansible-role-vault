@@ -29,7 +29,7 @@
       - vault_cluster_name is string
     quiet: yes
   when:
-    - vault_disable_clustering == "False"
+    - vault_disable_clustering == "false"
 
 - name: test if vault_cluster_addr is set correctly
   assert:
@@ -38,7 +38,7 @@
       - vault_cluster_addr is string
     quiet: yes
   when:
-    - vault_disable_clustering == "False"
+    - vault_disable_clustering == "false"
 
 - name: test if vault_api_addr is set correctly
   assert:
@@ -86,7 +86,7 @@
   loop_control:
     label: "{{ item.name }}"
   when:
-    - vault_disable_clustering == "False"
+    - vault_disable_clustering == "false"
 
 - name: test if item in vault_listeners is set correctly
   assert:
@@ -98,6 +98,7 @@
       - item.address is string
       - item.tls_disable is defined
       - item.tls_disable is string
+      - item.tls_disable in [ "false", "true" ]
     quiet: yes
   loop: "{{ vault_listeners }}"
   loop_control:
@@ -107,7 +108,8 @@
   assert:
     that:
       - vault_ui is defined
-      - vault_ui is boolean
+      - vault_ui is string
+      - vault_ui in [ "false", "true" ]
     quiet: yes
 
 - name: test if vault_key_shares is set correctly
