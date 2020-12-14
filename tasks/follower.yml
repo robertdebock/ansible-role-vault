@@ -7,6 +7,10 @@
 
 - name: join member to leader
   command: vault operator raft join -tls-skip-verify http://{{ vault_leader }}:8200
+  register: vault_join_member_to_leader
+  until:
+    - vault_join_member_to_leader is succeeded
+  retries: 5
   environment:
     VAULT_ADDR: "{{ vault_api_addr }}"
   args:
