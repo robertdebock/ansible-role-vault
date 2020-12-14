@@ -76,17 +76,17 @@
   loop_control:
     label: "{{ item.name }}"
 
-- name: test if item in vault_storages is set correctly for clusters
-  assert:
-    that:
-      - item.retry_join is defined
-      - item.retry_join is iterable
-    quiet: yes
-  loop: "{{ vault_storages }}"
-  loop_control:
-    label: "{{ item.name }}"
-  when:
-    - vault_disable_clustering == "false"
+# - name: test if item in vault_storages is set correctly for clusters
+#   assert:
+#     that:
+#       - item.retry_join is defined
+#       - item.retry_join is iterable
+#     quiet: yes
+#   loop: "{{ vault_storages }}"
+#   loop_control:
+#     label: "{{ item.name }}"
+#   when:
+#     - vault_disable_clustering == "false"
 
 - name: test if item in vault_listeners is set correctly
   assert:
