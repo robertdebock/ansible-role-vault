@@ -6,7 +6,7 @@ vault_max_lease_ttl: 786h
 vault_default_lease_ttl: 768h
 
 # Configure clustering.
-vault_disable_clustering: "True"
+vault_disable_clustering: "false"
 
 # The details of the cluster.
 vault_cluster_name: vault-cluster
@@ -17,9 +17,7 @@ vault_cluster_name: vault-cluster
 # vault_leader: centos-7
 
 # The URL where cluster members can find the leader.
-# This variable is not required for single-node installations, where the
-# variabel `vault_disable_clustering` is set to `"True"`.
-# vault_cluster_addr: "http://{{ vault_leader }}:8201"
+vault_cluster_addr: "http://{{ vault_leader }}:8201"
 
 # The URL where the API will be served.
 vault_api_addr: "http://vault2.example.com:8200"

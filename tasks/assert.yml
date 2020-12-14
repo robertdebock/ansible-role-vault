@@ -19,7 +19,7 @@
     that:
       - vault_disable_clustering is defined
       - vault_disable_clustering is string
-      - vault_disable_clustering in [ "False", "True" ]
+      - vault_disable_clustering in [ "false", "true" ]
     quiet: yes
 
 - name: test if vault_cluster_name is set correctly

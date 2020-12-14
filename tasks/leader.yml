@@ -16,17 +16,9 @@
       failed_when: no
       register: vault_status_raw
 
-    - name: show vault_status_raw
-      debug:
-        msg: "{{ vault_status_raw }}"
-
     - name: save vault_status for leader
       set_fact:
         vault_status: "{{ vault_status_raw.stdout | from_yaml }}"
-
-    - name: show vault_status
-      debug:
-        msg: "{{ vault_status }}"
 
     - name: initialize vault on leader
       command: vault operator init -key-shares={{ vault_key_shares }} -key-threshold={{ vault_key_threshold }} -format=yaml

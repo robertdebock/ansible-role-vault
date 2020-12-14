@@ -5,9 +5,7 @@ max_lease_ttl = "{{ vault_max_lease_ttl }}"
 default_lease_ttl = "{{ vault_default_lease_ttl }}"
 
 disable_clustering = "{{ vault_disable_clustering }}"
-{% if vault_cluster_addr is defined %}
 cluster_addr = "{{ vault_cluster_addr }}"
-{% endif %}
 
 api_addr = "{{ vault_api_addr }}"
 
@@ -36,10 +34,6 @@ listener "{{ listener.name }}" {
 }
 {% endfor %}
 
-api_addr = "{{ vault_api_addr }}"
-
-{% if vault_cluster_addr is defined %}
 cluster_addr = "{{ vault_cluster_addr }}"
-{% endif %}
 
 disable_mlock = {{ vault_disable_mlock }}
