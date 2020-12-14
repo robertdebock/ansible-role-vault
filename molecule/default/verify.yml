@@ -5,9 +5,9 @@
   gather_facts: no
 
   tasks:
-    - name: try vault
+    - name: try vault --version
       command: vault --version
 
     - name: connect to ui
       uri:
-        url: http://localhost:8200/ui/vault/auth?with=token
+        url: "http://127.0.0.1:8200/ui/vault/auth?with=token"
