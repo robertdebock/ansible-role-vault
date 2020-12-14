@@ -11,9 +11,11 @@
       command: vault status -format=yaml
       environment:
         VAULT_ADDR: "{{ vault_api_addr }}"
+      register: vault_status_raw
       changed_when: no
       check_mode: no
-      register: vault_status_raw
+      failed_when:
+        - vault_status_raw.rc == 1
 
     - name: save vault_status for leader
       set_fact:
