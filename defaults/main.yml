@@ -29,11 +29,7 @@ vault_plugin_directory: /usr/local/lib/vault/plugins
 vault_storages:
   - name: raft
     path: /vault/data
-    node_id: "{{ ansible_hostname | b64encode }}"
-    # retry_join:
-    #   - "http://vault1.example.com:8200"
-    #   - "http://vault2.example.com:8200"
-    #   - "/http://vault3.example.com:8200"
+    node_id: "{{ inventory_hostname_short }}"
 
 # Where vault should listen on.
 vault_listeners:
