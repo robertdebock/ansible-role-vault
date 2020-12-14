@@ -15,9 +15,9 @@ listener "{{ listener.name }}" {
 }
 {% endfor %}
 
-cluster_addr       = "{{ vault_cluster_addr }}"
 api_addr           = "{{ vault_api_addr }}"
-cluster_name       = "{{ vault_cluster_name }}"
+cluster_addr       = "{{ vault_cluster_addr }}"
+# cluster_name       = "{{ vault_cluster_name }}"
 disable_mlock      = {{ vault_disable_mlock }}
 
 # max_lease_ttl      = "{{ vault_max_lease_ttl }}"
