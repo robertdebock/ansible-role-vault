@@ -8,6 +8,26 @@
     - name: try vault --version
       command: vault --version
 
-    - name: connect to ui
+    - name: check status of vault
+      command: vault status -format=yaml
+      environment:
+        VAULT_ADDR: "http://127.0.0.1:8200"
+      register: vault_status_raw
+
+    - name: save vault_status
+      set_fact:
+        vault_status: "{{ vault_status_raw.stdout | from_yaml }}"
+
+    - name: check if vault is initialized
+      assert:
+        that:
+          - vault_status.initialized | bool
+
+    - name: check if vault is unsealed
+      assert:
+        that:
+          - not vault_status.sealed | bool
+
+    - name: connect to vault ui
       uri:
         url: "http://127.0.0.1:8200/ui/vault/auth?with=token"
