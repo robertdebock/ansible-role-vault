@@ -32,3 +32,9 @@
     mode: "0640"
   notify:
     - restart vault
+
+- name: start vault
+  service:
+    name: vault
+    state: started
+    enabled: true

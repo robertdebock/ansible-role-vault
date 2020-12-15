@@ -1,12 +1,6 @@
 ---
 - name: configure leader
   block:
-    - name: start vault leader
-      service:
-        name: vault
-        state: started
-        enabled: true
-
     - name: check status of vault leader
       command: vault status -format=yaml
       environment:
