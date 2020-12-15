@@ -89,6 +89,13 @@ vault_show_unseal_information: no
 
 # To reduce disk io, mlock can be disabled.
 vault_disable_mlock: "true"
+
+# You can unseal vault using unseal keys that are know. For new installations
+# you do not need to specify these.
+# vault_unseal_keys:
+#   - KeY-oNe
+#   - KeY-tWo
+#   - KeY-tHrEe
 ```
 
 ## [Requirements](#requirements)
