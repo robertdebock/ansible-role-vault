@@ -9,4 +9,4 @@
     - role: robertdebock.core_dependencies
     - role: robertdebock.hashicorp
       hashicorp_products:
-        - vault
+        - name: vault
