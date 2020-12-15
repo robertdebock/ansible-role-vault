@@ -45,15 +45,8 @@ These variables are set in `defaults/main.yml`:
 ---
 # defaults file for vault
 
-# The TTL parameters
-vault_max_lease_ttl: 786h
-vault_default_lease_ttl: 768h
-
 # Configure clustering.
-vault_disable_clustering: "True"
-
-# The details of the cluster.
-vault_cluster_name: vault-cluster
+vault_disable_clustering: "false"
 
 # The leader to use, please use a fqdn, i.e. `vault.example.com`
 # This variable is not required for single-node installations, where the
@@ -61,12 +54,10 @@ vault_cluster_name: vault-cluster
 # vault_leader: centos-7
 
 # The URL where cluster members can find the leader.
-# This variable is not required for single-node installations, where the
-# variabel `vault_disable_clustering` is set to `"True"`.
-# vault_cluster_addr: "http://{{ vault_leader }}:8201"
+vault_cluster_addr: "http://{{ vault_leader | default('localhost') }}:8201"
 
-# The URL where the API will be served.
-vault_api_addr: "http://vault2.example.com:8200"
+# The URL where the API will be served. This is the API of a local instance.
+vault_api_addr: "http://127.0.0.1:8200"
 
 # The plugin plugin directory.
 vault_plugin_directory: /usr/local/lib/vault/plugins
@@ -75,20 +66,17 @@ vault_plugin_directory: /usr/local/lib/vault/plugins
 vault_storages:
   - name: raft
     path: /vault/data
-    node_id: node1
-    # retry_join:
-    #   - "http://vault1.example.com:8200"
-    #   - "http://vault2.example.com:8200"
-    #   - "/http://vault3.example.com:8200"
+    node_id: "{{ inventory_hostname_short }}"
 
 # Where vault should listen on.
 vault_listeners:
   - name: tcp
     address: 127.0.0.1:8200
-    tls_disable: "1"
+    cluster_address: 127.0.0.1:8201
+    tls_disable: "true"
 
 # Have the web ui be made available.
-vault_ui: yes
+vault_ui: "true"
 
 # The amount of unseal keys to hand out.
 vault_key_shares: 5
@@ -99,16 +87,8 @@ vault_key_threshold: 3
 # this parameter to `yes`
 vault_show_unseal_information: no
 
-# Once the unseal keys are known, they can be used to unseal the vault.
-# The initial run on this role, displays the seal keys and token once.
-# You can set them after the initial run here, but much better would be
-# to use ansible-vault.
-# vault_unseal_keys:
-#   - "4zWxu8yVanUEkJmLOBCiZa6e5WQb+8zHcyv/HjyJKfqW"
-#   - "z6zNeNnJusBA0Sf46GSf0S7iNCdx+B7QeBfhh29LHxZR"
-#   - "8uEg/+mOON7qW84/Z2NKFDxht9UCWgUs7f541liP/tzU"
-#   - "ai3eH6KZCpbVLFwm6Wnnc9GDGYoM7K/gJkfB8nIzkV75"
-#   - "sBEBQzmx6LLRT0ty2g4GkSSestlv67MG974rZ3rNfZmK"
+# To reduce disk io, mlock can be disabled.
+vault_disable_mlock: "true"
 ```
 
 ## [Requirements](#requirements)
