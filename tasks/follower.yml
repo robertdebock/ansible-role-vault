@@ -1,18 +1,4 @@
 ---
-- name: check status of vault follower
-  command: vault status -format=yaml
-  environment:
-    VAULT_ADDR: "{{ vault_api_addr }}"
-  register: vault_status_raw
-  changed_when: no
-  check_mode: no
-  failed_when:
-    - vault_status_raw.rc == 1
-
-- name: save vault_status for follower
-  set_fact:
-    vault_status: "{{ vault_status_raw.stdout | from_yaml }}"
-
 - name: configure follower
   block:
     - name: join follower to leader

@@ -1,20 +1,6 @@
 ---
 - name: configure leader
   block:
-    - name: check status of vault leader
-      command: vault status -format=yaml
-      environment:
-        VAULT_ADDR: "{{ vault_api_addr }}"
-      register: vault_status_raw
-      changed_when: no
-      check_mode: no
-      failed_when:
-        - vault_status_raw.rc == 1
-
-    - name: save vault_status for leader
-      set_fact:
-        vault_status: "{{ vault_status_raw.stdout | from_yaml }}"
-
     - name: initialize vault on leader
       command: vault operator init -key-shares={{ vault_key_shares }} -key-threshold={{ vault_key_threshold }} -format=yaml
       register: vault_operator_init

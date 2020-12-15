@@ -38,3 +38,17 @@
     name: vault
     state: started
     enabled: true
+
+- name: check status of vault
+  command: vault status -format=yaml
+  environment:
+    VAULT_ADDR: "{{ vault_api_addr }}"
+  register: vault_status_raw
+  changed_when: no
+  check_mode: no
+  failed_when:
+    - vault_status_raw.rc == 1
+
+- name: save vault_status
+  set_fact:
+    vault_status: "{{ vault_status_raw.stdout | from_yaml }}"
