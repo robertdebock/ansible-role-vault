@@ -17,11 +17,7 @@ listener "{{ listener.name }}" {
 
 api_addr           = "{{ vault_api_addr }}"
 cluster_addr       = "{{ vault_cluster_addr }}"
-# cluster_name       = "{{ vault_cluster_name }}"
 disable_mlock      = {{ vault_disable_mlock }}
-
-# max_lease_ttl      = "{{ vault_max_lease_ttl }}"
-# default_lease_ttl  = "{{ vault_default_lease_ttl }}"
-# disable_clustering = "{{ vault_disable_clustering }}"
-# plugin_directory   = "/usr/local/lib/vault/plugins"
+disable_clustering = "{{ vault_disable_clustering }}"
+plugin_directory   = "{{ vault_plugin_directory }}"
 ui                 = {{ vault_ui }}

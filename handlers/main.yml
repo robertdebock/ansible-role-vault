@@ -4,8 +4,3 @@
 - name: restart vault
   debug:
     msg: "Restarting vault is disabled for now to prevent sealing."
-    # service:
-    #   name: vault
-    #   state: restarted
-    # when:
-    #   - not ansible_check_mode | bool
