@@ -25,6 +25,14 @@
   when:
     - vault_leader is not defined
 
+- name: create /etc/vault.d
+  file:
+    path: /etc/vault.d
+    state: directory
+    owner: vault
+    group: vault
+    mode: "0755"
+
 - name: place /etc/vaultd.d/config.hcl
   template:
     src: config.hcl.j2
