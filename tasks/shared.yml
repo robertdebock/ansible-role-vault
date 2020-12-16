@@ -37,6 +37,8 @@
   template:
     src: config.hcl.j2
     dest: /etc/vault.d/vault.hcl
+    owner: vault
+    group: vault
     mode: "0640"
   notify:
     - restart vault
