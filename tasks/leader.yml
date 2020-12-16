@@ -50,3 +50,29 @@
           vault_init_output.unseal_keys_b64 is iterable) or
           (vault_unseal_keys is defined)
   run_once: yes
+
+- name: backup vault
+  block:
+    - name: make a snapshot
+      uri:
+        url: "{{ vault_api_addr }}/v1/sys/storage/raft/snapshot"
+        return_content: yes
+        headers:
+          X-Vault-Token: "{{ vault_init_output.root_token | default(vault_root_token) }}"
+      register: vault_snapshot
+      until:
+        - vault_snapshot is succeeded
+      retries: 10
+
+    - name: save snapshot
+      copy:
+        dest: /root/raft.snap
+        content: "{{ vault_snapshot.content }}"
+        owner: root
+        group: root
+        mode: "0400"
+  when:
+    - vault_make_backup | bool
+    - vault_init_output is defined and
+      vault_init_output.root_token is defined or
+      vault_root_token is defined

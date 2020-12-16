@@ -18,6 +18,8 @@ This example is taken from `molecule/resources/converge.yml` and is tested on ea
 
   roles:
     - role: robertdebock.vault
+      vault_show_unseal_information: yes
+      vault_make_backup: yes
 ```
 
 The machine needs to be prepared in CI this is done using `molecule/resources/prepare.yml`:
@@ -96,6 +98,9 @@ vault_disable_mlock: "true"
 #   - KeY-oNe
 #   - KeY-tWo
 #   - KeY-tHrEe
+
+# You can use this role to make a backup of Vault.
+vault_make_backup: no
 ```
 
 ## [Requirements](#requirements)

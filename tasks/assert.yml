@@ -130,3 +130,10 @@
       - vault_disable_mlock is string
       - vault_disable_mlock in [ "false", "true" ]
     quiet: yes
+
+- name: test if vault_make_backup is set correctly
+  assert:
+    that:
+      - vault_make_backup is defined
+      - vault_make_backup is boolean
+    quiet: yes

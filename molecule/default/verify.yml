@@ -31,3 +31,10 @@
     - name: connect to vault ui
       uri:
         url: "http://127.0.0.1:8200/ui/vault/auth?with=token"
+
+    - name: check if backup exists
+      stat:
+        path: /root/raft.snap
+      register: vault_check_backup
+      failed_when:
+        - not vault_check_backup.stat.exists

@@ -52,3 +52,6 @@ vault_disable_mlock: "true"
 #   - KeY-oNe
 #   - KeY-tWo
 #   - KeY-tHrEe
+
+# You can use this role to make a backup of Vault.
+vault_make_backup: no

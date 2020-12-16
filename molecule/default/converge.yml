@@ -6,3 +6,5 @@
 
   roles:
     - role: ansible-role-vault
+      vault_show_unseal_information: yes
+      vault_make_backup: yes
