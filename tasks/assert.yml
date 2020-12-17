@@ -137,3 +137,12 @@
       - vault_make_backup is defined
       - vault_make_backup is boolean
     quiet: yes
+
+- name: test if vault_backup_path is set correctly
+  assert:
+    that:
+      - vault_backup_path is defined
+      - vault_backup_path is string
+    quiet: yes
+  when:
+    - vault_make_backup | bool

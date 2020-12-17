@@ -51,26 +51,15 @@
           (vault_unseal_keys is defined)
   run_once: yes
 
-- name: backup vault
-  block:
-    - name: make a snapshot
-      uri:
-        url: "{{ vault_api_addr }}/v1/sys/storage/raft/snapshot"
-        return_content: yes
-        headers:
-          X-Vault-Token: "{{ vault_init_output.root_token | default(vault_root_token) }}"
-      register: vault_snapshot
-      until:
-        - vault_snapshot is succeeded
-      retries: 10
-
-    - name: save snapshot
-      copy:
-        dest: /root/raft.snap
-        content: "{{ vault_snapshot.content }}"
-        owner: root
-        group: root
-        mode: "0400"
+- name: make a snapshot
+  command: vault operator raft snapshot save "{{ vault_backup_path }}"
+  register: vault_make_a_snapshot
+  retries: 5
+  until:
+    - vault_make_a_snapshot is succeeded
+  environment:
+    VAULT_ADDR: "{{ vault_api_addr }}"
+    VAULT_TOKEN: "{{ vault_init_output.root_token | default(vault_root_token) }}"
   when:
     - vault_make_backup | bool
     - vault_init_output is defined and

@@ -101,6 +101,10 @@ vault_disable_mlock: "true"
 
 # You can use this role to make a backup of Vault.
 vault_make_backup: no
+
+# Where should backups be saved? A full path, including file, for example:
+# vault_backup_path: /tmp/my_backup.yml
+vault_backup_path: "/root/vault-raft_{{ ansible_date_time.date}}-{{ ansible_date_time.hour }}{{ ansible_date_time.minute }}.snapshot"
 ```
 
 ## [Requirements](#requirements)
