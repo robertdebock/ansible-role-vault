@@ -20,6 +20,11 @@ This example is taken from `molecule/resources/converge.yml` and is tested on ea
     - role: robertdebock.vault
       vault_show_unseal_information: yes
       vault_make_backup: yes
+      vault_kv_secrets:
+        - name: my-secret
+          data:
+            foo: bar
+            zip: zap
 ```
 
 The machine needs to be prepared in CI this is done using `molecule/resources/prepare.yml`:
@@ -105,6 +110,22 @@ vault_make_backup: no
 # Where should backups be saved? A full path, including file, for example:
 # vault_backup_path: /tmp/my_backup.yml
 vault_backup_path: "/root/vault-raft_{{ ansible_date_time.date}}-{{ ansible_date_time.hour }}{{ ansible_date_time.minute }}.snapshot"
+
+# To provision resources, a namespace can be set.
+# vault_namespace: ""
+
+# The Key-Value engine can be configured with these items.
+vault_kv_max_versions: 5
+vault_kv_cas_required: "false"
+vault_kv_delete_version_after: 3h25m19s
+
+# Provision secrets.
+# vault_kv_secrets:
+#   - name: my-secret
+#     cas: 0
+#     data:
+#       foo: bar
+#       zip: zap
 ```
 
 ## [Requirements](#requirements)

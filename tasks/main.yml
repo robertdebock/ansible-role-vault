@@ -16,3 +16,10 @@
   when:
     - not ansible_check_mode | bool
     - inventory_hostname != vault_leader
+
+- name: run provisioning tasks
+  include_tasks: provisioning.yml
+  when:
+    - vault_kv_secrets is defined
+    - vault_root_token is defined or
+      vault_init_output.root_token is defined

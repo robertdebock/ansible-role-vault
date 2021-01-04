@@ -146,3 +146,65 @@
     quiet: yes
   when:
     - vault_make_backup | bool
+
+- name: test if vault_namespace is set correctly
+  assert:
+    that:
+      - vault_namespace is string
+    quiet: yes
+  when:
+    - vault_namespace is defined
+
+- name: test if vault_kv_secrets is set correctly
+  assert:
+    that:
+      - vault_kv_secrets is iterable
+    quiet: yes
+  when:
+    - vault_kv_secrets is defined
+
+- name: test if item vault_kv_secrets is set correctly
+  assert:
+    that:
+      - item.name is defined
+      - item.name is string
+      - item.data is defined
+      - item.data is mapping
+    quiet: yes
+  loop: "{{ vault_kv_secrets }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when:
+    - vault_kv_secrets is defined
+
+- name: test if item.cas vault_kv_secrets is set correctly
+  assert:
+    that:
+      - item.cas is number
+      - item.cas in [ 0, 1 ]
+    quiet: yes
+  loop: "{{ vault_kv_secrets }}"
+  when:
+    - vault_kv_secrets is defined
+    - item.cas is defined
+
+- name: test if vault_kv_max_versions is set correctly
+  assert:
+    that:
+      - vault_kv_max_versions is defined
+      - vault_kv_max_versions is number
+    quiet: yes
+
+- name: test if vault_kv_cas_required is set correctly
+  assert:
+    that:
+      - vault_kv_cas_required is defined
+      - vault_kv_cas_required in [ "false", "true" ]
+    quiet: yes
+
+- name: test if vault_kv_delete_version_after is set correctly
+  assert:
+    that:
+      - vault_kv_delete_version_after is defined
+      - vault_kv_delete_version_after is string
+    quiet: yes
