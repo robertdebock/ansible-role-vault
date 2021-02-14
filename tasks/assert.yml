@@ -1,7 +1,7 @@
 ---
 
 - name: test if vault_disable_clustering is set correctly
-  assert:
+  ansible.builtin.assert:
     that:
       - vault_disable_clustering is defined
       - vault_disable_clustering is string
@@ -9,7 +9,7 @@
     quiet: yes
 
 - name: test if vault_cluster_addr is set correctly
-  assert:
+  ansible.builtin.assert:
     that:
       - vault_cluster_addr is defined
       - vault_cluster_addr is string
@@ -18,28 +18,28 @@
     - vault_disable_clustering == "false"
 
 - name: test if vault_api_addr is set correctly
-  assert:
+  ansible.builtin.assert:
     that:
       - vault_api_addr is defined
       - vault_api_addr is string
     quiet: yes
 
 - name: test if vault_plugin_directory is set correctly
-  assert:
+  ansible.builtin.assert:
     that:
       - vault_plugin_directory is defined
       - vault_plugin_directory is string
     quiet: yes
 
 - name: test if vault_storages is set correctly
-  assert:
+  ansible.builtin.assert:
     that:
       - vault_storages is defined
       - vault_storages is iterable
     quiet: yes
 
 - name: test if item in vault_storages is set correctly
-  assert:
+  ansible.builtin.assert:
     that:
       - item.name is defined
       - item.name is string
@@ -54,14 +54,14 @@
     label: "{{ item.name }}"
 
 - name: test if vault_listeners is set correctly
-  assert:
+  ansible.builtin.assert:
     that:
       - vault_listeners is defined
       - vault_listeners is iterable
     quiet: yes
 
 - name: test if item in vault_listeners is set correctly
-  assert:
+  ansible.builtin.assert:
     that:
       - item.name is defined
       - item.name is string
@@ -79,7 +79,7 @@
     label: "{{ item.name }}"
 
 - name: test if vault_ui is set correctly
-  assert:
+  ansible.builtin.assert:
     that:
       - vault_ui is defined
       - vault_ui is string
@@ -87,7 +87,7 @@
     quiet: yes
 
 - name: test if vault_key_shares is set correctly
-  assert:
+  ansible.builtin.assert:
     that:
       - vault_key_shares is defined
       - vault_key_shares is number
@@ -95,7 +95,7 @@
     quiet: yes
 
 - name: test if vault_key_threshold is set correctly
-  assert:
+  ansible.builtin.assert:
     that:
       - vault_key_threshold is defined
       - vault_key_threshold is number
@@ -103,19 +103,19 @@
     quiet: yes
 
 - name: test if vault_key_shares and vault_key_threshold are set correctly
-  assert:
+  ansible.builtin.assert:
     that:
       - vault_key_threshold <= vault_key_shares
     quiet: yes
 
 - name: test if vault_show_unseal_information is set correctly
-  assert:
+  ansible.builtin.assert:
     that:
       - vault_show_unseal_information is defined
       - vault_show_unseal_information is boolean
 
 - name: test if vault_unseal_keys is set correctly
-  assert:
+  ansible.builtin.assert:
     that:
       - vault_unseal_keys | length >= vault_key_threshold
       - vault_unseal_keys is iterable
@@ -124,7 +124,7 @@
     - vault_unseal_keys is defined
 
 - name: test if vault_disable_mlock is set correctly
-  assert:
+  ansible.builtin.assert:
     that:
       - vault_disable_mlock is defined
       - vault_disable_mlock is string
@@ -132,14 +132,14 @@
     quiet: yes
 
 - name: test if vault_make_backup is set correctly
-  assert:
+  ansible.builtin.assert:
     that:
       - vault_make_backup is defined
       - vault_make_backup is boolean
     quiet: yes
 
 - name: test if vault_backup_path is set correctly
-  assert:
+  ansible.builtin.assert:
     that:
       - vault_backup_path is defined
       - vault_backup_path is string
@@ -148,7 +148,7 @@
     - vault_make_backup | bool
 
 - name: test if vault_namespace is set correctly
-  assert:
+  ansible.builtin.assert:
     that:
       - vault_namespace is string
     quiet: yes
@@ -156,7 +156,7 @@
     - vault_namespace is defined
 
 - name: test if vault_kv_secrets is set correctly
-  assert:
+  ansible.builtin.assert:
     that:
       - vault_kv_secrets is iterable
     quiet: yes
@@ -164,7 +164,7 @@
     - vault_kv_secrets is defined
 
 - name: test if item vault_kv_secrets is set correctly
-  assert:
+  ansible.builtin.assert:
     that:
       - item.name is defined
       - item.name is string
@@ -178,7 +178,7 @@
     - vault_kv_secrets is defined
 
 - name: test if item.cas vault_kv_secrets is set correctly
-  assert:
+  ansible.builtin.assert:
     that:
       - item.cas is number
       - item.cas in [ 0, 1 ]
@@ -189,21 +189,21 @@
     - item.cas is defined
 
 - name: test if vault_kv_max_versions is set correctly
-  assert:
+  ansible.builtin.assert:
     that:
       - vault_kv_max_versions is defined
       - vault_kv_max_versions is number
     quiet: yes
 
 - name: test if vault_kv_cas_required is set correctly
-  assert:
+  ansible.builtin.assert:
     that:
       - vault_kv_cas_required is defined
       - vault_kv_cas_required in [ "false", "true" ]
     quiet: yes
 
 - name: test if vault_kv_delete_version_after is set correctly
-  assert:
+  ansible.builtin.assert:
     that:
       - vault_kv_delete_version_after is defined
       - vault_kv_delete_version_after is string

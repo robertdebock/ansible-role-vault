@@ -2,7 +2,7 @@
 # handlers file for vault
 
 - name: restart vault
-  service:
+  ansible.builtin.service:
     name: vault
     state: restarted
   notify:
