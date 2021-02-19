@@ -1,6 +1,6 @@
 ---
 - name: create vault storage path
-  file:
+  ansible.builtin.file:
     path: "{{ item.path }}"
     mode: "0750"
     owner: vault
@@ -11,7 +11,7 @@
     label: "{{ item.path }}"
 
 - name: make plugin directory
-  file:
+  ansible.builtin.file:
     path: "{{ vault_plugin_directory }}"
     state: directory
     owner: vault
@@ -19,14 +19,14 @@
     mode: "0755"
 
 - name: select leader if vault_leader is unset
-  set_fact:
+  ansible.builtin.set_fact:
     vault_leader: "{{ inventory_hostname }}"
   run_once: yes
   when:
     - vault_leader is not defined
 
 - name: create /etc/vault.d
-  file:
+  ansible.builtin.file:
     path: /etc/vault.d
     state: directory
     owner: vault
@@ -34,7 +34,7 @@
     mode: "0755"
 
 - name: place /etc/vaultd.d/config.hcl
-  template:
+  ansible.builtin.template:
     src: config.hcl.j2
     dest: /etc/vault.d/vault.hcl
     owner: vault
@@ -44,7 +44,7 @@
     - restart vault
 
 - name: start vault
-  service:
+  ansible.builtin.service:
     name: vault
     state: started
     enabled: true
@@ -60,5 +60,5 @@
     - vault_status_raw.rc == 1
 
 - name: save vault_status
-  set_fact:
+  ansible.builtin.set_fact:
     vault_status: "{{ vault_status_raw.stdout | from_yaml }}"
