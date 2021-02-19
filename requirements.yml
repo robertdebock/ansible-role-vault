@@ -6,4 +6,3 @@ roles:
   - name: robertdebock.vault
 collections:
   - community.general
-  - name: ansible.builtin
