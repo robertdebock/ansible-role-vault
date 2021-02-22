@@ -10,7 +10,7 @@
         - not vault_status.initialized | bool
 
     - name: save vault_init_output for leader
-      set_fact:
+      ansible.builtin.set_fact:
         vault_init_output: "{{ vault_operator_init.stdout | from_yaml }}"
       when:
         - vault_operator_init is defined
@@ -21,11 +21,11 @@
         - name: show unseal information
           block:
             - name: show unseal keys for leader
-              debug:
+              ansible.builtin.debug:
                 msg: "{{ vault_init_output.unseal_keys_b64 | default(vault_unseal_keys) }}"
 
             - name: show root token for leader
-              debug:
+              ansible.builtin.debug:
                 msg: "{{ vault_init_output.root_token | default(vault_root_token) }}"
               when:
                 - vault_init_output is defined and
