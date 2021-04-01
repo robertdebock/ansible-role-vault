@@ -15,25 +15,25 @@
       register: vault_status_raw
 
     - name: save vault_status
-      set_fact:
+      ansible.builtin.set_fact:
         vault_status: "{{ vault_status_raw.stdout | from_yaml }}"
 
     - name: check if vault is initialized
-      assert:
+      ansible.builtin.assert:
         that:
           - vault_status.initialized | bool
 
     - name: check if vault is unsealed
-      assert:
+      ansible.builtin.assert:
         that:
           - not vault_status.sealed | bool
 
     - name: connect to vault ui
-      uri:
+      ansible.builtin.uri:
         url: "http://127.0.0.1:8200/ui/vault/auth?with=token"
 
     - name: check if backup exists
-      find:
+      ansible.builtin.find:
         path: /root
         pattern: '*.snapshot'
       register: vault_check_backup
