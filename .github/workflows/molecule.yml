@@ -43,8 +43,6 @@ jobs:
             tag: "33"
           - image: "fedora"
             tag: "latest"
-          - image: "fedora"
-            tag: "rawhide"
           - image: "ubuntu"
             tag: "bionic"
           - image: "ubuntu"
