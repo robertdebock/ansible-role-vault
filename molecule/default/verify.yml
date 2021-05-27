@@ -6,10 +6,12 @@
 
   tasks:
     - name: try vault --version
-      command: vault --version
+      ansible.builtin.command:
+        cmd: vault --version
 
     - name: check status of vault
-      command: vault status -format=yaml
+      ansible.builtin.command:
+        cmd: vault status -format=yaml
       environment:
         VAULT_ADDR: "http://127.0.0.1:8200"
       register: vault_status_raw
