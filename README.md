@@ -1,6 +1,6 @@
 # [vault](#vault)
 
-Install Hashicorp Vault on your system.
+Install, configure, initialize and unseal Hashicorp Vault.
 
 |GitHub|GitLab|Quality|Downloads|Version|
 |------|------|-------|---------|-------|
