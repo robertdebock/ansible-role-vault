@@ -24,11 +24,13 @@
       ansible.builtin.assert:
         that:
           - vault_status.initialized | bool
+        quiet: yes
 
     - name: check if vault is unsealed
       ansible.builtin.assert:
         that:
           - not vault_status.sealed | bool
+        quiet: yes
 
     - name: connect to vault ui
       ansible.builtin.uri:
