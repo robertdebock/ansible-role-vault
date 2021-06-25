@@ -13,7 +13,7 @@ vault_disable_clustering: "false"
 vault_cluster_addr: "http://{{ vault_leader | default('localhost') }}:8201"
 
 # The URL where the API will be served. This is the API of a local instance.
-vault_api_addr: "http://127.0.0.1:8200"
+vault_api_addr: "https://127.0.0.1:8200"
 
 # The plugin plugin directory.
 vault_plugin_directory: /usr/local/lib/vault/plugins

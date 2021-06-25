@@ -6,7 +6,7 @@
         cmd: vault operator init -key-shares={{ vault_key_shares }} -key-threshold={{ vault_key_threshold }} -format=yaml
       register: vault_operator_init
       environment:
-        VAULT_ADDR: "{{ vault_api_addr }}"
+        VAULT_SKIP_VERIFY: "TRUE"
       when:
         - not vault_status.initialized | bool
 
@@ -39,11 +39,11 @@
           ansible.builtin.command:
             cmd: vault operator unseal {{ item }}
           environment:
-            VAULT_ADDR: "{{ vault_api_addr }}"
+            VAULT_SKIP_VERIFY: "TRUE"
           loop: "{{ vault_init_output.unseal_keys_b64 | default(vault_unseal_keys) }}"
           loop_control:
             label: "hidden"
-          no_log: yes
+          # no_log: yes
           when:
             - vault_status.sealed | bool
       when:
