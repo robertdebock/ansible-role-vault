@@ -52,6 +52,8 @@
     mode: "0400"
   notify:
     - restart vault
+  when:
+    - vault_license is defined
 
 - name: start vault
   ansible.builtin.service:
