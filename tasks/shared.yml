@@ -43,6 +43,16 @@
   notify:
     - restart vault
 
+- name: place vault license
+  ansible.builtin.copy:
+    content: "{{ vault_license }}"
+    dest: /etc/vault.d/vault.hclic
+    owner: vault
+    group: vault
+    mode: "0400"
+  notify:
+    - restart vault
+
 - name: start vault
   ansible.builtin.service:
     name: vault

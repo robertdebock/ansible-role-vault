@@ -209,3 +209,11 @@
       - vault_kv_delete_version_after is defined
       - vault_kv_delete_version_after is string
     quiet: yes
+
+- name: test if vault_license is set correctly
+  ansible.builtin.assert:
+    that:
+      - vault_license is string
+    quiet: yes
+  when:
+    - vault_license is defined
