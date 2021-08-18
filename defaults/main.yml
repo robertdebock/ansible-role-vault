@@ -1,6 +1,13 @@
 ---
 # defaults file for vault
 
+# Set the owner and group of the Vault installation. This user and group
+# should exist before running this role. The service file (vault.service)
+# also refers to a user, `vault` by default. When using another value,
+# please also update the service file.
+vault_owner: vault
+vault_group: vault
+
 # Configure clustering.
 vault_disable_clustering: "false"
 

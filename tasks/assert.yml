@@ -1,5 +1,19 @@
 ---
 
+- name: test if vault_owner is set correctly
+  ansible.builtin.assert:
+    that:
+      - vault_owner is defined
+      - vault_owner is string
+    quiet: yes
+
+- name: test if vault_group is set correctly
+  ansible.builtin.assert:
+    that:
+      - vault_group is defined
+      - vault_group is string
+    quiet: yes
+
 - name: test if vault_disable_clustering is set correctly
   ansible.builtin.assert:
     that:
