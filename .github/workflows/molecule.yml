@@ -42,9 +42,9 @@ jobs:
           - image: "fedora"
             tag: "latest"
           - image: "ubuntu"
-            tag: "bionic"
-          - image: "ubuntu"
             tag: "latest"
+          - image: "ubuntu"
+            tag: "bionic"
     steps:
       - name: checkout
         uses: actions/checkout@v2
