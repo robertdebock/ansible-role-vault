@@ -59,7 +59,7 @@
   ansible.builtin.service:
     name: vault
     state: started
-    enabled: true
+    enabled: yes
 
 - name: check status of vault
   ansible.builtin.command:
