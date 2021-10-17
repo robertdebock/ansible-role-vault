@@ -8,5 +8,3 @@
     - role: robertdebock.bootstrap
     - role: robertdebock.core_dependencies
     - role: robertdebock.hashicorp
-      hashicorp_products:
-        - name: vault

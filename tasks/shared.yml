@@ -1,4 +1,10 @@
 ---
+
+- name: install vault
+  ansible.builtin.package:
+    name: vault
+    state: present
+
 - name: create vault storage path
   ansible.builtin.file:
     path: "{{ item.path }}"
