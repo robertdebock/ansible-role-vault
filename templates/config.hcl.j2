@@ -12,9 +12,9 @@ listener "{{ listener.name }}" {
   address         = "{{ listener.address }}"
   cluster_address = "{{ listener.cluster_address }}"
   tls_disable     = {{ listener.tls_disable }}
-  {% if not listener.tls_disable %}
-  tls_cert_file   = {{ tls_cert_file }}
-  tls_key_file    = {{ tls_key_file }}
+  {% if listener.tls_disable == 'false' %}
+  tls_cert_file   = {{ listener.tls_cert_file }}
+  tls_key_file    = {{ listener.tls_key_file }}
   {% endif %}
 }
 {% endfor %}
