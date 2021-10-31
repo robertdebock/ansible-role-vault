@@ -21,7 +21,7 @@ listener "{{ listener.name }}" {
 
 {% if vault_transit is defined and vault_transit %}
 seal "transit" {
-  address            = "{{ kvaas_protocol }}{{ kvaas_server }}:{{ kvaas_port }}"
+  address            = "{{ kvaas_protocol }}://{{ kvaas_server }}:{{ kvaas_port }}"
   token              = "{{ kvaas_token }}"
   disable_renewal    = "false"
 
