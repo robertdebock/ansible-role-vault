@@ -19,6 +19,18 @@ listener "{{ listener.name }}" {
 }
 {% endfor %}
 
+{% if vault_transit is defined and vault_transit %}
+seal "transit" {
+  address            = "{{ kvaas_protocol }}{{ kvaas_server }}:{{ kvaas_port }}"
+  token              = "{{ kvaas_token }}"
+  disable_renewal    = "false"
+
+  key_name           = "autounseal"
+  mount_path         = "transit/"
+  tls_skip_verify    = "true"
+}
+{% endif %}
+
 max_lease_ttl      = "{{ vault_max_lease_ttl }}"
 default_lease_ttl  = "{{ vault_default_lease_ttl }}"
 api_addr           = "{{ vault_api_addr }}"
