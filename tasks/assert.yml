@@ -92,6 +92,20 @@
   loop_control:
     label: "{{ item.name }}"
 
+- name: test if item in vault_listeners is set correctly when tls_disable is yes
+  ansible.builtin.assert:
+    that:
+      - item.tls_cert_file is defined
+      - item.tls_cert_file is string
+      - item.tls_key_file is defined
+      - item.tls_key_file is string
+    quiet: yes
+  loop: "{{ vault_listeners }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when:
+    - not item.tls_disable
+
 - name: test if vault_ui is set correctly
   ansible.builtin.assert:
     that:
@@ -239,3 +253,40 @@
       - vault_log_level is string
       - vault_log_level in [ "trace", "debug", "info", "warn", "err" ]
     quiet: yes
+
+- name: test if vault_max_lease_ttl is set correctly
+  ansible.builtin.assert:
+    that:
+      - vault_max_lease_ttl is defined
+      - vault_max_lease_ttl is string
+    quiet: yes
+
+- name: test if vault_default_lease_ttl is set correctly
+  ansible.builtin.assert:
+    that:
+      - vault_default_lease_ttl is defined
+      - vault_default_lease_ttl is string
+    quiet: yes
+
+- name: test if vault_transit is set correctly
+  ansible.builtin.assert:
+    that:
+      - vault_transit is boolean
+      - kvaas_protocol is defined
+      - kvaas_protocol is string
+      - kvaas_protocol in [ "http", "https" ]
+      - kvaas_server is defined
+      - kvaas_server is string
+      - kvaas_port is defined
+      - kvaas_port is number
+    quiet: yes
+  when:
+    - vault_transit is defined
+
+- name: test if vault_disable_cache is set correctly
+  ansible.builtin.assert:
+    that:
+      - vault_disable_cache is boolean
+    quiet: yes
+  when:
+    - vault_disable_cache is defined
