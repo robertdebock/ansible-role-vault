@@ -4,7 +4,7 @@ Install, configure, initialize and unseal Hashicorp Vault.
 
 |GitHub|GitLab|Quality|Downloads|Version|
 |------|------|-------|---------|-------|
-|[![github](https://github.com/robertdebock/ansible-role-vault/workflows/Ansible%20Molecule/badge.svg)](https://github.com/robertdebock/ansible-role-vault/actions)|[![gitlab](https://gitlab.com/robertdebock/ansible-role-vault/badges/master/pipeline.svg)](https://gitlab.com/robertdebock/ansible-role-vault)|[![quality](https://img.shields.io/ansible/quality/)](https://galaxy.ansible.com/robertdebock/vault)|[![downloads](https://img.shields.io/ansible/role/d/)](https://galaxy.ansible.com/robertdebock/vault)|[![Version](https://img.shields.io/github/release/robertdebock/ansible-role-vault.svg)](https://github.com/robertdebock/ansible-role-vault/releases/)|
+|[![github](https://github.com/robertdebock/ansible-role-vault/workflows/Ansible%20Molecule/badge.svg)](https://github.com/robertdebock/ansible-role-vault/actions)|[![gitlab](https://gitlab.com/robertdebock/ansible-role-vault/badges/master/pipeline.svg)](https://gitlab.com/robertdebock/ansible-role-vault)|[![quality](https://img.shields.io/ansible/quality/50255)](https://galaxy.ansible.com/robertdebock/vault)|[![downloads](https://img.shields.io/ansible/role/d/50255)](https://galaxy.ansible.com/robertdebock/vault)|[![Version](https://img.shields.io/github/release/robertdebock/ansible-role-vault.svg)](https://github.com/robertdebock/ansible-role-vault/releases/)|
 
 ## [Example Playbook](#example-playbook)
 
@@ -50,6 +50,10 @@ The default values for the variables are set in `defaults/main.yml`:
 ---
 # defaults file for vault
 
+# Configure some general parameters
+vault_max_lease_ttl: "10h"
+vault_default_lease_ttl: "10h"
+
 # Set the owner and group of the Vault installation. This user and group
 # should exist before running this role. The service file (vault.service)
 # also refers to a user, `vault` by default. When using another value,
@@ -86,6 +90,8 @@ vault_listeners:
     address: 127.0.0.1:8200
     cluster_address: 127.0.0.1:8201
     tls_disable: "true"
+    tls_cert_file: "fullchain.pem"
+    tls_key_file: "privkey.pem"
 
 # Have the web ui be made available.
 vault_ui: "true"
