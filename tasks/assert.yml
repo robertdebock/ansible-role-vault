@@ -279,6 +279,8 @@
       - kvaas_server is string
       - kvaas_port is defined
       - kvaas_port is number
+      - kvaas_token is defined
+      - kvaas_token is string
     quiet: yes
   when:
     - vault_transit is defined
