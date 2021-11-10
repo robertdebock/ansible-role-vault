@@ -19,6 +19,7 @@ This example is taken from `molecule/default/converge.yml` and is tested on each
   roles:
     - role: robertdebock.vault
       vault_show_unseal_information: yes
+      vault_store_root_token: yes
       vault_make_backup: yes
       vault_kv_secrets:
         - name: my-secret
@@ -144,6 +145,9 @@ vault_kv_delete_version_after: 3h25m19s
 
 # Set the log_level. Either "trace", "debug", "info", "warn" or "err".
 vault_log_level: "info"
+
+# You can store the root token in a file to make using Vault easier.
+vault_store_root_token: no
 ```
 
 ## [Requirements](#requirements)

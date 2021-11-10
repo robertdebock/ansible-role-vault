@@ -95,3 +95,6 @@ vault_kv_delete_version_after: 3h25m19s
 
 # Set the log_level. Either "trace", "debug", "info", "warn" or "err".
 vault_log_level: "info"
+
+# You can store the root token in a file to make using Vault easier.
+vault_store_root_token: no

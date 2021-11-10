@@ -292,3 +292,18 @@
     quiet: yes
   when:
     - vault_disable_cache is defined
+
+- name: test if vault_disable_clustering is "true" for raft
+  ansible.builtin.assert:
+    that:
+      - vault_disable_clustering == "true"
+    quiet: yes
+  when:
+    - '"raft" in vault_storages'
+
+- name: test if vault_store_root_token is set correctly
+  ansible.builtin.assert:
+    that:
+      - vault_store_root_token is defined
+      - vault_store_root_token is boolean
+    quiet: yes
