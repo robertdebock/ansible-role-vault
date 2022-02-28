@@ -51,6 +51,10 @@ The default values for the variables are set in `defaults/main.yml`:
 ---
 # defaults file for vault
 
+# You can install vault using a package in this role. If you have installed
+# vault manually, set this to `no`.
+vault_install_package: yes
+
 # Configure some general parameters
 vault_max_lease_ttl: "10h"
 vault_default_lease_ttl: "10h"
@@ -187,7 +191,6 @@ The minimum version of Ansible required is 2.10, tests have been done to:
 - The previous version.
 - The current version.
 - The development version.
-
 
 
 If you find issues, please register them in [GitHub](https://github.com/robertdebock/ansible-role-vault/issues)
