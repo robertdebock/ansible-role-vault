@@ -52,7 +52,8 @@ The default values for the variables are set in `defaults/main.yml`:
 # defaults file for vault
 
 # You can install vault using a package in this role. If you have installed
-# vault manually, set this to `no`.
+# vault manually, set this to `no`. Setting this to `no`, also creates the user
+# and group for Vault.
 vault_install_package: yes
 
 # Configure some general parameters
