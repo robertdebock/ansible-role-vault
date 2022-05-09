@@ -22,7 +22,7 @@ vault_disable_clustering: "false"
 
 # The leader to use, please use a fqdn, i.e. `vault.example.com`
 # This variable is not required for single-node installations, where the
-# variabel `vault_disable_clustering` is set to `"True"`.
+# variable `vault_disable_clustering` is set to `"True"`.
 # vault_leader: centos-7
 
 # The URL where cluster members can find the leader.
