@@ -72,7 +72,7 @@ vault_disable_clustering: "false"
 
 # The leader to use, please use a fqdn, i.e. `vault.example.com`
 # This variable is not required for single-node installations, where the
-# variabel `vault_disable_clustering` is set to `"True"`.
+# variable `vault_disable_clustering` is set to `"True"`.
 # vault_leader: centos-7
 
 # The URL where cluster members can find the leader.
@@ -184,7 +184,7 @@ This role has been tested on these [container images](https://hub.docker.com/u/r
 |---------|----|
 |debian|bullseye|
 |el|8|
-|fedora|34, 35|
+|fedora|all|
 |ubuntu|all|
 
 The minimum version of Ansible required is 2.10, tests have been done to:
