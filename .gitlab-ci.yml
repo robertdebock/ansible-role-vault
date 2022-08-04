@@ -20,7 +20,7 @@ molecule:
       - image: "debian"
         tag: "latest"
       - image: "enterpriselinux"
-        tag: "latest"
+        tag: "8"
       - image: "fedora"
         tag: "35"
       - image: "fedora"
