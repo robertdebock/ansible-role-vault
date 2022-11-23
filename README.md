@@ -27,6 +27,12 @@ This example is taken from `molecule/default/converge.yml` and is tested on each
           data:
             foo: bar
             zip: zap
+      # You can (optionally) set a list of nodes to join.
+      vault_retry_join:
+        - address: 192.168.1.1
+        - address: 192.168.1.2
+        - address: 192.168.1.3
+
 ```
 
 The machine needs to be prepared. In CI this is done using `molecule/default/prepare.yml`:
