@@ -343,7 +343,7 @@
     quiet: yes
   loop: "{{ vault_retry_join }}"
   loop_control:
-    label: "{{ item.leader_ca_cert_file }}"
+    label: "{{ item.address }}"
   when:
     - vault_retry_join is defined
     - item.leader_ca_cert_file is defined
@@ -355,7 +355,7 @@
     quiet: yes
   loop: "{{ vault_retry_join }}"
   loop_control:
-    label: "{{ item.leader_client_cert_file }}"
+    label: "{{ item.address }}"
   when:
     - vault_retry_join is defined
     - item.leader_client_cert_file is defined
@@ -367,7 +367,7 @@
     quiet: yes
   loop: "{{ vault_retry_join }}"
   loop_control:
-    label: "{{ item.leader_client_key_file }}"
+    label: "{{ item.address }}"
   when:
     - vault_retry_join is defined
     - item.leader_client_key_file is defined
