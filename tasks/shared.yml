@@ -58,7 +58,7 @@
     group: "{{ vault_group }}"
     mode: "0755"
 
-- name: Place /etc/vaultd.d/config.hcl
+- name: Place /etc/vault.d/config.hcl
   ansible.builtin.template:
     src: config.hcl.j2
     dest: /etc/vault.d/vault.hcl
