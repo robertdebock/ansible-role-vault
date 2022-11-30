@@ -32,7 +32,6 @@ This example is taken from `molecule/default/converge.yml` and is tested on each
         - address: 192.168.1.1
         - address: 192.168.1.2
         - address: 192.168.1.3
-
 ```
 
 The machine needs to be prepared. In CI this is done using `molecule/default/prepare.yml`:
@@ -59,6 +58,9 @@ The default values for the variables are set in `defaults/main.yml`:
 ```yaml
 ---
 # defaults file for vault
+
+# You can install "oss", "ent" or "hsm".
+vault_type: oss
 
 # You can install vault using a package in this role. If you have installed
 # vault manually, set this to `no`. Setting this to `no`, also creates the user
@@ -193,7 +195,7 @@ This role has been tested on these [container images](https://hub.docker.com/u/r
 |---------|----|
 |debian|bullseye|
 |el|8|
-|fedora|35, 36|
+|fedora|36|
 |ubuntu|all|
 
 The minimum version of Ansible required is 2.10, tests have been done to:

@@ -2,7 +2,7 @@
 
 - name: Install vault
   ansible.builtin.package:
-    name: vault
+    name: "{{ vault_package }}"
     state: present
   when:
     - vault_install_package
