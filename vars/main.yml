@@ -6,4 +6,4 @@ _vault_package:
   ent: vault-enterprise
   hsm: vault-enterprise-hsm
 
-vault_package: _vault_package[vault_type]
+vault_package: "{{ _vault_package[vault_type] }}"
