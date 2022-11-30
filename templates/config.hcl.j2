@@ -6,7 +6,7 @@ storage "{{ storage.name }}" {
   node_id = "{{ storage.node_id }}"
 
   {%- if vault_retry_join is defined -%}
-  {%- for item in vault_retry_join -%}
+  {% for item in vault_retry_join %}
   retry_join {
     leader_api_addr = "{{ item.address }}"
     {% if item.leader_ca_cert_file is defined %}leader_ca_cert_file = "{{ item.leader_ca_cert_file }}"{% endif %}
