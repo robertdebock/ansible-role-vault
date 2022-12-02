@@ -106,3 +106,27 @@ vault_log_level: "info"
 
 # You can store the root token in a file to make using Vault easier.
 vault_store_root_token: no
+
+# Vault metrics provider configuration
+#
+# You may specify any option for your provider described here:
+# https://developer.hashicorp.com/vault/docs/configuration/telemetry#telemetry-parameters
+# Note: The use of 'common' is optional. If you use the same common option in multiple times, the
+# last defined one will be used by Vault.
+
+# vault_metrics:
+#   common:
+#     disable_hostname: true
+#
+#   provider:
+#     statsite:
+#       statsite_address: "statsite.company.local:8125"
+#
+#     circonus:
+#       circonus_api_token: "00000000-0000-0000-0000-000000000000"
+#       circonus_api_app: "appname"
+#       circonus_api_url: "https://api.circonus.com/v2"
+#       circonus_submission_interval: "10s"
+#
+#     prometheus:
+#       prometheus_retention_time: "24h"
