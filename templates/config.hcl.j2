@@ -4,15 +4,16 @@
 storage "{{ storage.name }}" {
   path    = "{{ storage.path }}"
   node_id = "{{ storage.node_id }}"
-{% if vault_retry_join is defined %}{% for item in vault_retry_join %}
+{% if vault_retry_join is defined %}
+{% for item in vault_retry_join %}
   retry_join {
     leader_api_addr = "{{ item.address }}"
 {% if item.leader_ca_cert_file is defined %}    leader_ca_cert_file = "{{ item.leader_ca_cert_file }}"{% endif %}
-{% if item.leader_client_cert_file is defined %}     leader_client_cert_file = "{{ item.leader_client_cert_file }}"{% endif %}
-{% if item.leader_client_key_file is defined %}     leader_client_key_file = "{{ item.leader_client_key_file }}"{% endif %}
+{% if item.leader_client_cert_file is defined %}    leader_client_cert_file = "{{ item.leader_client_cert_file }}"{% endif %}
+{% if item.leader_client_key_file is defined %}    leader_client_key_file = "{{ item.leader_client_key_file }}"{% endif %}
   }
-  {%- endfor %}
-  {%- endif %}
+{% endfor %}
+{% endif %}
 }
 {% endfor %}
 
@@ -20,7 +21,7 @@ storage "{{ storage.name }}" {
 listener "{{ listener.name }}" {
   address         = "{{ listener.address }}"
   cluster_address = "{{ listener.cluster_address }}"
-  tls_disable     = "{{ listener.tls_disable }}"
+  tls_disable     = {{ listener.tls_disable }}
 {% if listener.tls_disable == 'false' %}
   tls_cert_file   = "{{ listener.tls_cert_file }}"
   tls_key_file    = "{{ listener.tls_key_file }}"
@@ -45,12 +46,12 @@ default_lease_ttl  = "{{ vault_default_lease_ttl }}"
 api_addr           = "{{ vault_api_addr }}"
 cluster_addr       = "{{ vault_cluster_addr }}"
 {% if vault_disable_cache is defined %}
-disable_cache      = "{{ vault_disable_cache }}"
+disable_cache      = {{ vault_disable_cache }}
 {% endif %}
-disable_mlock      = "{{ vault_disable_mlock }}"
-disable_clustering = "{{ vault_disable_clustering }}"
+disable_mlock      = {{ vault_disable_mlock }}
+disable_clustering = {{ vault_disable_clustering }}
 plugin_directory   = "{{ vault_plugin_directory }}"
-ui                 = "{{ vault_ui }}"
+ui                 = {{ vault_ui }}
 {% if vault_license is defined %}
 license_path       = "/etc/vault.d/vault.hclic"
 {% endif %}
@@ -59,12 +60,20 @@ log_level          = "{{ vault_log_level }}"
 {% if vault_metrics is defined %}
 telemetry {
 {% for key, value in vault_metrics.common.items() if vault_metrics.common is defined %}
+{% if (value | lower) == (value | bool | string | lower ) %}
+  {{ key }} = {{ value }}
+{% else %}
   {{ key }} = "{{ value }}"
+{% endif %}
 {% endfor %}
 
 {% for name, options in vault_metrics.provider.items() if vault_metrics.provider is defined %}
 {% for key, value in options.items() %}
+{% if (value | lower) == (value | bool | string | lower ) %}
+  {{ key }} = {{ value }}
+{% else %}
   {{ key }} = "{{ value }}"
+{% endif %}
 {% endfor %}
 {% endfor %}
 }

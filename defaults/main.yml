@@ -116,7 +116,7 @@ vault_store_root_token: no
 
 # vault_metrics:
 #   common:
-#     disable_hostname: true
+#     disable_hostname: "true"
 #
 #   provider:
 #     statsite:
