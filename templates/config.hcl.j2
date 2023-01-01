@@ -10,11 +10,8 @@ storage "{{ storage.name }}" {
 {% if item.leader_ca_cert_file is defined %}    leader_ca_cert_file = "{{ item.leader_ca_cert_file }}"{% endif %}
 {% if item.leader_client_cert_file is defined %}     leader_client_cert_file = "{{ item.leader_client_cert_file }}"{% endif %}
 {% if item.leader_client_key_file is defined %}     leader_client_key_file = "{{ item.leader_client_key_file }}"{% endif %}
-  }
-  {%- endfor %}
-  {%- endif %}
-}
-{% endfor %}
+  }{% endfor %}{% endif %}
+}{% endfor %}
 
 {% for listener in vault_listeners %}
 listener "{{ listener.name }}" {
