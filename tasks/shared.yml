@@ -8,6 +8,8 @@
     - vault_install_package
 
 - name: Ensure vault user and group exist
+  when:
+    - not vault_install_package
   block:
     - name: Ensure group vault exists
       ansible.builtin.group:
@@ -21,8 +23,6 @@
         shell: /bin/false
         group: vault
         system: yes
-  when:
-    - not vault_install_package
 
 - name: Create vault storage path
   ansible.builtin.file:
