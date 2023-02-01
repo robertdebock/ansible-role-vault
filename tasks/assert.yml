@@ -378,3 +378,46 @@
   when:
     - vault_retry_join is defined
     - item.leader_client_key_file is defined
+
+- name: Test if vault_metrics is set correctly
+  ansible.builtin.assert:
+    that:
+      - vault_metrics is iterable
+    quiet: yes
+  when:
+    - vault_metrics is defined
+  
+- name: Test if items in vault_metrics.common are set correctly
+  ansible.builtin.assert:
+    that:
+      - item.key is defined
+      - item.key is string
+      - item.value is defined
+      - item.value is string
+    quiet: yes
+  loop: "{{ vault_metrics.common | dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"
+  when:
+    - vault_metrics.common is defined
+
+- name: Test if vault_metrics.provider is set correctly
+  ansible.builtin.assert:
+    that:
+      - vault_metrics.provider is iterable
+    quiet: yes
+  when:
+    - vault_metrics.provider is defined
+
+- name: Test if items in vault_metrics.provider are set correctly
+  ansible.builtin.assert:
+    that:
+      - item.key is defined
+      - item.key is string
+      - item.value is mapping
+    quiet: yes
+  loop: "{{ vault_metrics.provider | dict2items }}"
+  loop_control:
+    label: "provider {{ item.key }}"
+  when:
+    - vault_metrics.provider is defined
