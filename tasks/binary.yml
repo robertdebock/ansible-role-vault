@@ -115,6 +115,14 @@
   notify:
     - Restart vault
 
+- name: Create /usr/lib/systemd/system
+  ansible.builtin.file:
+    path: /usr/lib/systemd/system
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
 - name: Copy Vault service file
   ansible.builtin.template:
     src: vault.service.j2
