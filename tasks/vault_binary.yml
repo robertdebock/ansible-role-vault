@@ -110,6 +110,9 @@
     group: "{{ vault_group }}"
     mode: "0644"
     state: touch
+    modification_time: preserve
+    access_time: preserve
+
   notify:
     - Restart vault
 
