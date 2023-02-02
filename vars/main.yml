@@ -1,9 +1,63 @@
 ---
 # vars file for vault
 
+# The Vault binary includes an architecture reference, for example "amd64" or "386". This maps relates the ansible_architecture to the name that HashiCorp uses.
+_vault_architecture_map:
+  x86_64: "amd64"
+  arm64: "arm64"
+  i386: "386"
+vault_architecture: "{{ _vault_architecture_map[ansible_architecture] }}"
+
+# Map ansible_pkg_mgr to a "separator". Different package managers use different symbols to restrict a version.
+# For example:
+# APT: vault=1.2.3
+# DNF: vault-1.2.3
+_vault_version_separator:
+  default: "-"
+  apt: "="
+vault_version_separator: "{{ _vault_version_separator[ansible_pkg_mgr] | default(_vault_version_separator['default']) }}"
+
+# Map vault_type to a package name.
 _vault_package:
-  oss: vault
-  ent: vault-enterprise
-  hsm: vault-enterprise-hsm
+  oss: vault{{ vault_version_separator }}{{ vault_version }}
+  ent: vault-enterprise{{ vault_version_separator }}{{ vault_version }}
+  hsm: vault-enterprise-hsm{{ vault_version_separator }}{{ vault_version }}
 
 vault_package: "{{ _vault_package[vault_type] }}"
+
+# These are the directories that must exists. Used when vault_installation_method=binary. They are relative to `vault_path`.
+vault_directories:
+  - name: "{{ vault_path }}/etc/vault.d"
+    owner: "{{ vault_user }}"
+    group: "{{ vault_user }}"
+    mode: "0755"
+  - name: "{{ vault_path }}/usr/bin"
+    owner: root
+    group: root
+    mode: "0555"
+
+# Directories to create for Vault data.
+vault_data_directories:
+  - name: "{{ vault_data_directory }}/data"
+    owner: "{{ vault_user }}"
+    group: "{{ vault_user }}"
+    mode: "0755"
+  - name: "{{ vault_data_directory }}/tls"
+    owner: "{{ vault_user }}"
+    group: "{{ vault_user }}"
+    mode: "0700"
+
+# Specific modes for TLS material.
+vault_tls_files:
+  - name: "{{ vault_data_directory }}/tls/tls.crt"
+    owner: "{{ vault_user }}"
+    group: "{{ vault_user }}"
+    mode: "0600"
+  - name: "{{ vault_data_directory }}/tls/tls.key"
+    owner: "{{ vault_user }}"
+    group: "{{ vault_user }}"
+    mode: "0600"
+  - name: "{{ vault_data_directory }}/tls"
+    owner: "{{ vault_user }}"
+    group: "{{ vault_user }}"
+    mode: "0700"

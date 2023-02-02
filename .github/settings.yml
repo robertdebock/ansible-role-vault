@@ -3,6 +3,6 @@
 # Ansible managed
 #
 repository:
-  description: Install, configure, initialize and unseal Hashicorp Vault.
+  description: Install Hashicorp Vault, either a package or a binary.
   homepage: https://robertdebock.nl/
   topics: vault, hashicorp, ansible, molecule, tox, playbook, hacktoberfest
