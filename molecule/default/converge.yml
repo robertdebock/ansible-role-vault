@@ -6,16 +6,4 @@
 
   roles:
     - role: ansible-role-vault
-      vault_show_unseal_information: yes
-      vault_store_root_token: yes
-      vault_make_backup: yes
-      vault_kv_secrets:
-        - name: my-secret
-          data:
-            foo: bar
-            zip: zap
-      # You can (optionally) set a list of nodes to join.
-      vault_retry_join:
-        - address: 192.168.1.1
-        - address: 192.168.1.2
-        - address: 192.168.1.3
+      vault_installation_method: binary
