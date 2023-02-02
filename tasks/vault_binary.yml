@@ -109,6 +109,7 @@
     owner: "{{ vault_user }}"
     group: "{{ vault_group }}"
     mode: "0644"
+    state: touch
   notify:
     - Restart vault
 
