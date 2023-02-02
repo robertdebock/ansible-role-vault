@@ -4,8 +4,3 @@
   ansible.builtin.package:
     name: "{{ vault_package }}"
     state: present
-  notify:
-    - Daemon reload
-
-- name: Flush handlers
-  ansible.builtin.meta: flush_handlers

@@ -4,15 +4,15 @@
 # The `setcap` and openssl binaries must be avaible. The package differs per distribution.
 _vault_prerequisites:
   default:
+    - file
     - libcap
     - openssl
-  Alpine:
-    - libcap-utils
-    - openssl
   Debian:
+    - file
     - libcap2-bin
     - openssl
   Suse:
+    - file
     - libcap-progs
     - openssl
 vault_prerequisites: "{{ _vault_prerequisites[ansible_os_family] | default(_vault_prerequisites['default']) }}"
