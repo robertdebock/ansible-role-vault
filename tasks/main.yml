@@ -8,7 +8,7 @@
 
 - name: Include installation method specific tasks
   ansible.builtin.include_tasks:
-    file: vault_{{ vault_installation_method }}.yml
+    file: "{{ vault_installation_method }}.yml"
 
 - name: Start vault
   ansible.builtin.service:
