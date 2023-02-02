@@ -7,5 +7,3 @@
   roles:
     - role: ansible-role-vault
       vault_installation_method: binary
-    # Running the role again to install a package. This tests both scenarios of this role.
-    - role: ansible-role-vault
