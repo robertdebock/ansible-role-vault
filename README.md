@@ -108,7 +108,7 @@ This role has been tested on these [container images](https://hub.docker.com/u/r
 |[Amazon](https://hub.docker.com/repository/docker/robertdebock/amazonlinux/general)|Candidate|
 |[Debian](https://hub.docker.com/repository/docker/robertdebock/debian/general)|all|
 |[EL](https://hub.docker.com/repository/docker/robertdebock/enterpriselinux/general)|all|
-|[Fedora](https://hub.docker.com/repository/docker/robertdebock/fedora/general)|all|
+|[Fedora](https://hub.docker.com/repository/docker/robertdebock/fedora/general)|36, 37|
 |[opensuse](https://hub.docker.com/repository/docker/robertdebock/opensuse/general)|all|
 |[Ubuntu](https://hub.docker.com/repository/docker/robertdebock/ubuntu/general)|all|
 
