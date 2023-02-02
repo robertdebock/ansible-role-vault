@@ -102,6 +102,7 @@
   community.general.capabilities:
     path: /usr/bin/vault
     capability: cap_ipc_lock+ep
+  changed_when: no
 
 - name: Touch vault.env
   ansible.builtin.file:
