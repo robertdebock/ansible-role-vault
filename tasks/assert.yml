@@ -15,6 +15,15 @@
       - vault_version is string
     quiet: yes
 
+- name: Test if vault_package_release is set correctly
+  ansible.builtin.assert:
+    that:
+      - vault_package_release is defined
+      - vault_package_release is string
+    quiet: yes
+  when:
+    - vault_installation_method == "package"
+
 - name: Test if vault_installation_method is set correctly
   ansible.builtin.assert:
     that:
