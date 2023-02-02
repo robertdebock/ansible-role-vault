@@ -112,7 +112,6 @@
     state: touch
     modification_time: preserve
     access_time: preserve
-
   notify:
     - Restart vault
 
