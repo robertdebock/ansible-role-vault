@@ -54,7 +54,7 @@ The default values for the variables are set in [`defaults/main.yml`](https://gi
 vault_type: oss
 
 # Set the version of the package to install.
-vault_version: 1.12.2
+vault_version: "1.12.2"
 
 # Select the way to intall Vault. Either "package" or "binary".
 vault_installation_method: "package"
@@ -74,16 +74,8 @@ vault_group: vault
 # When `vault_installation_method` is set to "binary", set the shell for the vault_user.
 vault_user_shell: /bin/false
 
-# Directories to create for Vault data.
-vault_data_directories:
-  - name: /opt/vault/data
-    owner: "{{ vault_user }}"
-    group: "{{ vault_user }}"
-    mode: "0755"
-  - name: /opt/vault/tls
-    owner: "{{ vault_user }}"
-    group: "{{ vault_user }}"
-    mode: "0700"
+# Where to store data. That's Raft data and TLS material.
+vault_data_directory: /opt/vault
 ```
 
 ## [Requirements](#requirements)
