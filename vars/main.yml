@@ -4,6 +4,7 @@
 # The `setcap` binary must be avaible. The package differs per distribution.
 _vault_prerequisites:
   default: libcap
+  Alpine: libcap-utils
   Debian: libcap2-bin
   Suse: libcap-progs
 
