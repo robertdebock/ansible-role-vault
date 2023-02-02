@@ -146,3 +146,6 @@
     force: no
   notify:
     - Restart vault
+
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers

@@ -1,11 +1,11 @@
 ---
 # handlers file for vault
 
+- name: Daemon reload
+  ansible.builtin.systemd:
+    daemon_reload: true
+
 - name: Restart vault
   ansible.builtin.service:
     name: vault
     state: restarted
-
-- name: Daemon reload
-  ansible.builtin.systemd:
-    daemon_reload: true
