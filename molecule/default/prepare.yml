@@ -7,7 +7,4 @@
   roles:
     - role: robertdebock.bootstrap
     - role: robertdebock.core_dependencies
-    - role: robertdebock.software
-      software_packages:
-        - name: openssl
     - role: robertdebock.hashicorp
