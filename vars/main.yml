@@ -1,6 +1,14 @@
 ---
 # vars file for vault
 
+# The `setcap` binary must be avaible. The package differs per distribution.
+_vault_prerequisites:
+  default: libcap
+  Debian: libcap2-bin
+  Suse: libcap-progs
+
+vault_prerequisites: "{{ _vault_prerequisites[ansible_distribution] | default(_vault_prerequisites['default']) }}"
+
 # The Vault binary includes an architecture reference, for example "amd64" or "386". This maps relates the ansible_architecture to the name that HashiCorp uses.
 _vault_architecture_map:
   x86_64: "amd64"

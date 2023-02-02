@@ -6,6 +6,10 @@
   run_once: yes
   delegate_to: localhost
 
+- name: Install prerequisites
+  ansible.builtin.package:
+    name: "{{ vault_prerequisites }}"
+
 - name: Include installation method specific tasks
   ansible.builtin.include_tasks:
     file: "{{ vault_installation_method }}.yml"
