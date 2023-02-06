@@ -14,13 +14,6 @@
   ansible.builtin.include_tasks:
     file: "{{ vault_installation_method }}.yml"
 
-- name: Place Vault license
-  ansible.builtin.copy:
-    dest: "{{ vault_path }}/etc/vault.d/license.hclic"
-    content: "{{ vault_license }}"
-  when:
-    - vault_license is defined
-
 - name: Start and enable vault
   ansible.builtin.service:
     name: vault

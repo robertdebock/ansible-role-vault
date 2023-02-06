@@ -76,9 +76,6 @@ vault_user_shell: /bin/false
 
 # Where to store data. That's Raft data and TLS material.
 vault_data_directory: /opt/vault
-
-# Set the license. Rquired when `vault_type` is `"ent"` or `"hsm"`.
-# vault_license: "XYZABC"
 ```
 
 ## [Requirements](#requirements)

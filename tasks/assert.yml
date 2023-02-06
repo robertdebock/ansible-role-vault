@@ -94,12 +94,3 @@
     quiet: yes
   when:
     - vault_installation_method == "binary"
-
-- name: Test if vault_license is set correctly
-  ansible.builtin.assert:
-    that:
-      - vault_license is defined
-      - vault_license is string
-    quiet: yes
-  when:
-    - vault_type in [ "ent", "hsm" ]
