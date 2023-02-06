@@ -19,3 +19,12 @@
     name: vault
     state: started
     enabled: yes
+  when:
+    - vault_type == "oss"
+
+- name: Enable vault
+  ansible.builtin.service:
+    name: vault
+    enabled: yes
+  when:
+    - vault_type != "oss"
