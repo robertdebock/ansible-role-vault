@@ -16,7 +16,7 @@
 
 - name: Place Vault license
   ansible.builtin.copy:
-    path: "{{ vault_path }}/etc/vault.d/license.hclic"
+    dest: "{{ vault_path }}/etc/vault.d/license.hclic"
     content: "{{ vault_license }}"
   when:
     - vault_license is defined
