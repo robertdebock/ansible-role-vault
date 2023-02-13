@@ -100,7 +100,7 @@
 
 - name: Set cap_ipc_lock=ep on /usr/bin/vault
   community.general.capabilities:
-    path: /usr/bin/vault
+    path: "{{ vault_path }}/usr/bin/vault"
     capability: cap_ipc_lock+ep
   changed_when: no
 
