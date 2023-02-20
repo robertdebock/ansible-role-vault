@@ -6,4 +6,3 @@
 
   roles:
     - role: ansible-role-vault
-      vault_installation_method: binary
