@@ -2,6 +2,9 @@
 # defaults file for vault
 
 # Select the type of Vault to install. Either "oss", "ent" or "hsm".
+# `oss` means Open Source.
+# `ent` means Enterprise.
+# `hsm` means Enterprise with HSM support.
 vault_type: oss
 
 # Set the version of the package to install.
