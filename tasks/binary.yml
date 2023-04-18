@@ -72,8 +72,8 @@
 - name: Generate TLS key and certificate
   ansible.builtin.command:
     cmd: openssl req -out tls.crt -new -keyout tls.key -newkey rsa:4096 -nodes -sha256 -x509 -subj "/O=HashiCorp/CN=Vault" -days 1095
-    chdir: /opt/vault/tls
-    creates: /opt/vault/tls/tls.key
+    chdir: "{{ vault_data_directory }}/tls/"
+    creates: "{{ vault_data_directory }}/tls/tls.key"
   notify:
     - Restart vault
 
@@ -136,9 +136,9 @@
   when:
     - ansible_service_mgr == "systemd"
 
-- name: Copy vault configuration
-  ansible.builtin.copy:
-    src: vault.hcl
+- name: Generate vault configuration 
+  ansible.builtin.template:
+    src: vault.hcl.j2
     dest: "{{ vault_path }}/etc/vault.d/vault.hcl"
     owner: root
     group: root
