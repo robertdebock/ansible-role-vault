@@ -136,7 +136,7 @@
   when:
     - ansible_service_mgr == "systemd"
 
-- name: Generate vault configuration 
+- name: Generate vault configuration
   ansible.builtin.template:
     src: vault.hcl.j2
     dest: "{{ vault_path }}/etc/vault.d/vault.hcl"
