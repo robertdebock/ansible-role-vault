@@ -5,6 +5,6 @@
   gather_facts: no
 
   tasks:
-    - name: try vault --version
+    - name: Try vault --version
       ansible.builtin.command:
         cmd: vault --version
