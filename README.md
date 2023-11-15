@@ -1,4 +1,4 @@
-# Ansible role [vault](#vault)
+# [Ansible role vault](#vault)
 
 Install Hashicorp Vault, either a package or a binary.
 
