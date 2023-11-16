@@ -53,7 +53,7 @@ The default values for the variables are set in [`defaults/main.yml`](https://gi
 vault_type: oss
 
 # Set the version of the package to install.
-vault_version: "1.12.3"
+vault_version: "1.15.2"
 
 # For package installations, a "release" is required. The package would for example be called `vault-1.12.2-1`.
 vault_package_release: "1"
