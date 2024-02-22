@@ -78,6 +78,18 @@ vault_user_shell: /bin/false
 
 # Where to store data. That's Raft data and TLS material.
 vault_data_directory: /opt/vault
+
+# Hardening advices to disable swap.
+vault_hardening_disable_swap: yes
+
+# Hardening advices to disable core dumps.
+vault_hardening_disable_core_dumps: yes
+
+# Hardening advices to disable shell command history.
+vault_hardening_disable_shell_command_history: yes
+
+# Hardening advices to configure SELinux / AppArmor.
+vault_hardening_configure_selinux_apparmor: yes
 ```
 
 ## [Requirements](#requirements)
