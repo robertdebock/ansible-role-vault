@@ -1,21 +1,21 @@
 ---
 
-- name: Disable swap
+- name: hardening | Disable swap
   when:
     - vault_hardening_disable_swap
   block:
-    - name: Disable swap now
+    - name: hardening | Disable swap now
       ansible.builtin.command:
         cmd: swapoff -a
       when:
         - ansible_swaptotal_mb > 0
 
-    - name: Disable swap permanently
+    - name: hardening | Disable swap permanently
       ansible.posix.mount:
         name: swap
         state: absent
 
-- name: Disable core dumps
+- name: hardening | Disable core dumps
   community.general.pam_limits:
     domain: "{{ item.domain }}"
     limit_type: "{{ item.limit_type }}"
@@ -35,7 +35,7 @@
   when:
     - vault_hardening_disable_core_dumps
 
-- name: Disable Shell Command History
+- name: hardening | Disable Shell Command History
   ansible.builtin.copy:
     dest: /etc/profile.d/vault.sh
     content: |
@@ -46,25 +46,25 @@
   when:
     - vault_hardening_disable_shell_command_history
 
-- name: Configure SELinux / AppArmor
+- name: hardening | Configure SELinux / AppArmor
   when:
     - vault_hardening_configure_selinux_apparmor
   block:
-    - name: Enable SELinux
+    - name: hardening | Enable SELinux
       when:
         - ansible_selinux.status == "enabled"
       block:
-        - name: Install selinux-policy
+        - name: hardening | Install selinux-policy
           ansible.builtin.package:
             name: selinux-policy
             state: present
 
-        - name: Set SELinux policy
+        - name: hardening | Set SELinux policy
           ansible.builtin.selinux:
             policy: targeted
             state: enforcing
 
-    - name: Enable AppArmor (enforcing)
+    - name: hardening | Enable AppArmor (enforcing)
       ansible.builtin.command:
         cmd: aa-enforce /etc/apparmor.d/usr.bin.vault
       when:
