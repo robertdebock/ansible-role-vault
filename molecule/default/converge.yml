@@ -6,3 +6,4 @@
 
   roles:
     - role: ansible-role-vault
+      vault_hardening_disable_swap: no
