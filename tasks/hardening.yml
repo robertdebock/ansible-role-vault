@@ -61,7 +61,7 @@
             state: present
 
         - name: hardening | Set SELinux policy
-          ansible.builtin.selinux:
+          ansible.posix.selinux:
             policy: targeted
             state: enforcing
 
