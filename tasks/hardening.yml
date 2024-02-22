@@ -11,7 +11,7 @@
         - ansible_swaptotal_mb > 0
 
     - name: Disable swap permanently
-      ansible.builtin.mount:
+      ansible.posix.mount:
         name: swap
         state: absent
 
