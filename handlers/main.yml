@@ -3,7 +3,7 @@
 
 - name: Daemon reload
   ansible.builtin.systemd:
-    daemon_reload: true
+    daemon_reload: yes
 
 - name: Restart vault
   ansible.builtin.service:
