@@ -1,8 +1,8 @@
 ---
 - name: Verify
   hosts: all
-  become: yes
-  gather_facts: no
+  become: true
+  gather_facts: false
 
   vars:
     vault_root_token: root
@@ -11,7 +11,7 @@
     - name: Try vault --version
       ansible.builtin.command:
         cmd: vault --version
-      changed_when: no
+      changed_when: false
 
     - name: Stop vault service
       ansible.builtin.service:
@@ -23,7 +23,7 @@
         cmd: vault server -dev -dev-root-token-id="{{ vault_root_token }}"
       async: 180
       poll: 0
-      changed_when: yes
+      changed_when: true
       notify:
         - Enable KV secrets engine
         - Write a secret to the KV secrets engine
@@ -34,7 +34,7 @@
     - name: Enable KV secrets engine
       ansible.builtin.command:
         cmd: vault secrets enable -path=kv kv
-      changed_when: yes
+      changed_when: true
       environment:
         VAULT_ADDR: "http://localhost:8200"
         VAULT_TOKEN: "{{ vault_root_token }}"
@@ -42,7 +42,7 @@
     - name: Write a secret to the KV secrets engine
       ansible.builtin.command:
         cmd: vault kv put kv/my-secret my-value=s3cr3t
-      changed_when: yes
+      changed_when: true
       environment:
         VAULT_ADDR: "http://localhost:8200"
         VAULT_TOKEN: "{{ vault_root_token }}"
@@ -51,7 +51,7 @@
       ansible.builtin.command:
         cmd: vault kv get kv/my-secret
       register: vault_secret
-      changed_when: yes
+      changed_when: true
       environment:
         VAULT_ADDR: "http://localhost:8200"
         VAULT_TOKEN: "{{ vault_root_token }}"
@@ -60,4 +60,4 @@
       ansible.builtin.assert:
         that:
           - vault_secret.stdout.find('s3cr3t') != -1
-        quiet: yes
+        quiet: true

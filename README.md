@@ -14,12 +14,12 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
 ---
 - name: Converge
   hosts: all
-  become: yes
-  gather_facts: yes
+  become: true
+  gather_facts: true
 
   roles:
     - role: robertdebock.vault
-      vault_hardening_disable_swap: no
+      vault_hardening_disable_swap: false
 ```
 
 The machine needs to be prepared. In CI this is done using [`molecule/default/prepare.yml`](https://github.com/robertdebock/ansible-role-vault/blob/master/molecule/default/prepare.yml):
@@ -28,8 +28,8 @@ The machine needs to be prepared. In CI this is done using [`molecule/default/pr
 ---
 - name: Prepare
   hosts: all
-  become: yes
-  gather_facts: no
+  become: true
+  gather_facts: false
 
   roles:
     - role: robertdebock.bootstrap
@@ -81,16 +81,16 @@ vault_user_shell: /bin/false
 vault_data_directory: /opt/vault
 
 # Hardening advices to disable swap.
-vault_hardening_disable_swap: yes
+vault_hardening_disable_swap: true
 
 # Hardening advices to disable core dumps.
-vault_hardening_disable_core_dumps: yes
+vault_hardening_disable_core_dumps: true
 
 # Hardening advices to disable shell command history.
-vault_hardening_disable_shell_command_history: yes
+vault_hardening_disable_shell_command_history: true
 
 # Hardening advices to configure SELinux / AppArmor.
-vault_hardening_configure_selinux_apparmor: yes
+vault_hardening_configure_selinux_apparmor: true
 ```
 
 ## [Requirements](#requirements)
