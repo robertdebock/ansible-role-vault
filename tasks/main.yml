@@ -15,6 +15,17 @@
   ansible.builtin.include_tasks:
     file: "{{ vault_installation_method }}.yml"
 
+- name: Add Vault environment variables
+  ansible.builtin.lineinfile:
+    path: /etc/vault.d/vault.env
+    create: true
+    regexp: "^{{ item.name }}="
+    line: "{{ item.name }}={{ item.value }}"
+    mode: "0644"
+  loop: "{{ vault_environment_settings }}"
+  notify:
+    - Restart vault
+
 - name: Include hardening tasks
   ansible.builtin.include_tasks:
     file: hardening.yml

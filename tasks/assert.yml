@@ -132,3 +132,11 @@
       - vault_hardening_configure_selinux_apparmor is defined
       - vault_hardening_configure_selinux_apparmor is boolean
     quiet: true
+
+- name: assert | Test vault_environment_settings
+  ansible.builtin.assert:
+    that:
+      - vault_environment_settings is iterable
+    quiet: true
+  when:
+    - vault_environment_settings is defined

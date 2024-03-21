@@ -70,3 +70,7 @@ argument_specs:
         type: "bool"
         default: true
         description: "Hardening advices to configure SELinux / AppArmor."
+      vault_environment_settings:
+        type: "list"
+        default: []
+        description: "You can place variables that Vault listens to in this list."
