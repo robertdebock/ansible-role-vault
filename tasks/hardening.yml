@@ -4,6 +4,14 @@
   when:
     - vault_hardening_disable_swap
   block:
+    - name: Show vault_hardening_disable_swap
+      ansible.builtin.debug:
+        msg: "vault_hardening_disable_swap: {{ vault_hardening_disable_swap }}"
+
+    - name: Show ansible_swaptotal_mb
+      ansible.builtin.debug:
+        msg: "ansible_swaptotal_mb: {{ ansible_swaptotal_mb }}"
+
     - name: hardening | Disable swap now
       ansible.builtin.command:
         cmd: swapoff -a

@@ -35,7 +35,7 @@ vault_user_shell: /bin/false
 vault_data_directory: /opt/vault
 
 # Hardening advices to disable swap.
-vault_hardening_disable_swap: false
+vault_hardening_disable_swap: true
 
 # Hardening advices to disable core dumps.
 vault_hardening_disable_core_dumps: true
