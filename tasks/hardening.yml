@@ -1,21 +1,20 @@
 ---
 
 - name: hardening | Disable swap
+  when:
+    - vault_hardening_disable_swap
   block:
     - name: hardening | Disable swap now
       ansible.builtin.command:
         cmd: swapoff -a
       changed_when: true
       when:
-        - vault_hardening_disable_swap
         - ansible_swaptotal_mb > 0
 
     - name: hardening | Disable swap permanently
       ansible.posix.mount:
         name: swap
         state: absent
-      when:
-        - vault_hardening_disable_swap
 
 - name: hardening | Disable core dumps
   community.general.pam_limits:
