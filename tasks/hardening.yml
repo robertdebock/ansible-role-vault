@@ -1,28 +1,21 @@
 ---
 
 - name: hardening | Disable swap
-  when:
-    - vault_hardening_disable_swap
   block:
-    - name: Show vault_hardening_disable_swap
-      ansible.builtin.debug:
-        msg: "vault_hardening_disable_swap: {{ vault_hardening_disable_swap }}"
-
-    - name: Show ansible_swaptotal_mb
-      ansible.builtin.debug:
-        msg: "ansible_swaptotal_mb: {{ ansible_swaptotal_mb }}"
-
     - name: hardening | Disable swap now
       ansible.builtin.command:
         cmd: swapoff -a
       changed_when: true
       when:
+        - vault_hardening_disable_swap
         - ansible_swaptotal_mb > 0
 
     - name: hardening | Disable swap permanently
       ansible.posix.mount:
         name: swap
         state: absent
+      when:
+        - vault_hardening_disable_swap
 
 - name: hardening | Disable core dumps
   community.general.pam_limits:
@@ -56,11 +49,10 @@
     - vault_hardening_disable_shell_command_history
 
 - name: hardening | Configure SELinux / AppArmor
-  when:
-    - vault_hardening_configure_selinux_apparmor
   block:
     - name: hardening | Enable SELinux
       when:
+        - vault_hardening_configure_selinux_apparmor
         - ansible_selinux.status == "enabled"
       block:
         - name: hardening | Install selinux-policy
