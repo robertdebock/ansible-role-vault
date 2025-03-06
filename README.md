@@ -18,7 +18,7 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
   gather_facts: true
 
   roles:
-    - role: robertdebock.vault
+    - role: ansible-role-vault
       vault_hardening_disable_swap: false
 ```
 
