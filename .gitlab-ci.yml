@@ -27,16 +27,10 @@ molecule:
         tag: "bullseye"
       - image: "enterpriselinux"
         tag: "latest"
-      - image: "fedora"
-        tag: "39"
-      - image: "fedora"
-        tag: "40"
       - image: "ubuntu"
         tag: "latest"
       - image: "ubuntu"
         tag: "jammy"
-      - image: "ubuntu"
-        tag: "focal"
 
 galaxy:
   image: python:3.13
