@@ -48,9 +48,9 @@ The default values for the variables are set in [`defaults/main.yml`](https://gi
 # defaults file for vault
 
 # Select the type of Vault to install. Either "oss", "ent" or "hsm".
-# `oss` means Open Source.
-# `ent` means Enterprise.
-# `hsm` means Enterprise with HSM support.
+# `oss` means Vault Open Source/community edition.
+# `ent` means Vault Enterprise.
+# `hsm` means Vault Enterprise with HSM support.
 vault_type: oss
 
 # Set the version of the package to install.
