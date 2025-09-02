@@ -65,7 +65,7 @@ vault_installation_method: "package"
 # When `vault_installation_method` is set to "binary", set the path where to (temporarily) download Vault.
 vault_download_path: "/tmp/vault-{{ vault_version }}"
 
-# When `vault_installation_method` is set to "binary", set the (base) path where to install Vault. This can be "" or "/opt" for example.
+# When `vault_installation_method` is set to "binary", set the (base) path where to install Vault. This can be "" or "/opte" for example.
 vault_path: ""
 
 # When `vault_installation_method` is set to "binary", set the user Vault will run under. The user "root" is not allowed.
