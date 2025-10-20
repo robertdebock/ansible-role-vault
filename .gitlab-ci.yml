@@ -27,6 +27,8 @@ molecule:
         tag: "bullseye"
       - image: "enterpriselinux"
         tag: "latest"
+      - image: "fedora"
+        tag: "latest"
       - image: "ubuntu"
         tag: "latest"
       - image: "ubuntu"
