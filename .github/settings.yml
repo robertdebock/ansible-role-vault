@@ -5,4 +5,4 @@
 repository:
   description: Install Hashicorp Vault, either a package or a binary.
   homepage: https://robertdebock.nl/
-  topics: vault, hashicorp, security, ansible, molecule, tox, playbook
+  topics: vault, hashicorp, security, ansible, molecule, playbook
