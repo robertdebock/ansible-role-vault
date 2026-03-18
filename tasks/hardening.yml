@@ -9,7 +9,7 @@
         cmd: swapoff -a
       changed_when: true
       when:
-        - ansible_swaptotal_mb > 0
+        - ansible_facts['swaptotal_mb'] > 0
 
     - name: hardening | Disable swap permanently
       ansible.posix.mount:
@@ -52,7 +52,7 @@
     - name: hardening | Enable SELinux
       when:
         - vault_hardening_configure_selinux_apparmor
-        - ansible_selinux.status == "enabled"
+        - ansible_facts['selinux'].status == "enabled"
       block:
         - name: hardening | Install selinux-policy
           ansible.builtin.package:
@@ -69,4 +69,4 @@
         cmd: aa-enforce /etc/apparmor.d/usr.bin.vault
       changed_when: true
       when:
-        - ansible_apparmor.status == "enabled"
+        - ansible_facts['apparmor'].status == "enabled"

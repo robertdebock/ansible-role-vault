@@ -134,7 +134,7 @@
   notify:
     - Daemon reload
   when:
-    - ansible_service_mgr == "systemd"
+    - ansible_facts['service_mgr'] == "systemd"
 
 - name: binary | Copy vault configuration
   ansible.builtin.copy:

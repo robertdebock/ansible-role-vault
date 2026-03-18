@@ -13,14 +13,14 @@ _vault_prerequisites:
     - libcap2-bin
     - openssl
     - procps
-vault_prerequisites: "{{ _vault_prerequisites[ansible_os_family] | default(_vault_prerequisites['default']) }}"
+vault_prerequisites: "{{ _vault_prerequisites[ansible_facts['os_family']] | default(_vault_prerequisites['default']) }}"
 
 # The Vault binary includes an architecture reference, for example "amd64" or "386". This maps relates the ansible_architecture to the name that HashiCorp uses.
 _vault_architecture_map:
   x86_64: "amd64"
   arm64: "arm64"
   i386: "386"
-vault_architecture: "{{ _vault_architecture_map[ansible_architecture] }}"
+vault_architecture: "{{ _vault_architecture_map[ansible_facts['architecture']] }}"
 
 # The structure of the package name depends per package manager and type (`oss`, `ent` or `ent+hsm`) installation:
 # OSS:
@@ -37,7 +37,7 @@ vault_architecture: "{{ _vault_architecture_map[ansible_architecture] }}"
 _vault_version_separator:
   default: "-"
   apt: "="
-vault_version_separator: "{{ _vault_version_separator[ansible_pkg_mgr] | default(_vault_version_separator['default']) }}"
+vault_version_separator: "{{ _vault_version_separator[ansible_facts['pkg_mgr']] | default(_vault_version_separator['default']) }}"
 
 # Map vault_type to a package name.
 _vault_package:
