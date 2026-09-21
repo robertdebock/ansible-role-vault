@@ -23,8 +23,6 @@ molecule:
         tag: "latest"
       - image: "debian"
         tag: "bookworm"
-      - image: "debian"
-        tag: "bullseye"
       - image: "enterpriselinux"
         tag: "latest"
       - image: "fedora"
