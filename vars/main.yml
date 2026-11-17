@@ -19,6 +19,7 @@ vault_prerequisites: "{{ _vault_prerequisites[ansible_facts['os_family']] | defa
 _vault_architecture_map:
   x86_64: "amd64"
   arm64: "arm64"
+  aarch64: "arm64"
   i386: "386"
 vault_architecture: "{{ _vault_architecture_map[ansible_facts['architecture']] }}"
 
