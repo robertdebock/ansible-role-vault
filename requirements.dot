@@ -1,0 +1,13 @@
+digraph PhiloDilemma {
+  label = "Robert de Bock" ;
+  overlap=false
+  {
+    "vault" [fillcolor=yellow style=filled penwidth=3]
+    "robertdebock.bootstrap" [fillcolor=green style=filled]
+    "robertdebock.core_dependencies" [fillcolor=green style=filled]
+    "robertdebock.hashicorp" [fillcolor=green style=filled]
+  }
+  "vault" -> "robertdebock.bootstrap"
+  "vault" -> "robertdebock.core_dependencies"
+  "vault" -> "robertdebock.hashicorp"
+}
